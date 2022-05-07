@@ -16,14 +16,14 @@ class Solution:
             pivotIndex = random.randint(l, r) # choose random pivot
             nums[pivotIndex], nums[r] = nums[r], nums[pivotIndex] # swap pivot with rightmost element
             
-            i = l - 1
+            i = l
             for j in range(l, r):
                 if nums[j] > nums[r]:
-                    i += 1
                     nums[j], nums[i] = nums[i], nums[j]
+                    i += 1
             
-            nums[r], nums[i + 1] = nums[i + 1], nums[r]
-            return i + 1
+            nums[r], nums[i] = nums[i], nums[r]
+            return i
         
         return quickselect(nums, 0, len(nums) - 1, k)
             
