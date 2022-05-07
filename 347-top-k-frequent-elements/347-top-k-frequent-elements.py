@@ -23,13 +23,6 @@ class Solution:
             return i
         
         Dict = Counter(nums)
-        
-        print(Dict)
-        
         unique = list(Dict.keys())
-        
         quickselect(unique, 0, len(unique) - 1, k, Dict)
-        
-        print(unique)
-        
         return unique[:k]
