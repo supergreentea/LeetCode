@@ -6,7 +6,5 @@ class Solution:
             key = ""
             for c in s:
                 charCount[ord(c) - ord('a')] += 1
-            for count in charCount:
-                key += "#" + str(count)
-            Dict[key].append(s)
+            Dict[tuple(charCount)].append(s)
         return Dict.values()
