@@ -16,17 +16,13 @@ class Solution:
     def partition(self, nums, low, high):
         pivotIndex = randint(low, high)
         pivot = nums[pivotIndex]
-        self.swap(nums, pivotIndex, high)
+        nums[pivotIndex], nums[high] = nums[high], nums[pivotIndex]
         
         i = low - 1
         for j in range(low, high):
             if nums[j] > pivot:
                 i += 1
-                self.swap(nums, i, j)
-        self.swap(nums, i + 1, high)
+                nums[i], nums[j] = nums[j], nums[i]
+        nums[i + 1], nums[high] = nums[high], nums[i + 1]
         return i + 1
     
-    def swap(self, nums, i, j):
-        temp = nums[i]
-        nums[i] = nums[j]
-        nums[j] = temp
