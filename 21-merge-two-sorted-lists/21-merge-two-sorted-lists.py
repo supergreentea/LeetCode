@@ -17,9 +17,6 @@ class Solution:
                 list2 = list2.next
             cur = cur.next
         
-        if list1:
-            cur.next = list1
-        else:
-            cur.next = list2
+        cur.next = list1 if list1 else list2
         
         return prehead.next
