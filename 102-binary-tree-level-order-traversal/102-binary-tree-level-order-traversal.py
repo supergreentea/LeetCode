@@ -7,17 +7,21 @@
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         
-        Dict = defaultdict(list)
+        levels = []
         
         def dfs(root, level):
             if root == None:
                 return
-            Dict[level].append(root.val)
+            if len(levels) == level:
+                levels.append([])
+                
+            levels[level].append(root.val)
+            
             dfs(root.left, level + 1)
             dfs(root.right, level + 1)
         
         dfs(root, 0)
         
-        return Dict.values()
+        return levels
             
             
