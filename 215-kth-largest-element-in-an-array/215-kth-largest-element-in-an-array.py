@@ -13,7 +13,7 @@ class Solution:
         
         def partition(nums, l, r):
             i = l
-            for j in range(l, len(nums)):
+            for j in range(l, r):
                 if nums[j] > nums[r]:
                     nums[i], nums[j] = nums[j], nums[i]
                     i += 1
