@@ -21,7 +21,6 @@ class Solution:
             p, q = queue.popleft()
             if not check(p, q):
                 return False
-            
             if p:
                 queue.append((p.left, q.left))
                 queue.append((p.right, q.right))
