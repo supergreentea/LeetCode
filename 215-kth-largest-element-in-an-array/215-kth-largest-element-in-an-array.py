@@ -12,6 +12,8 @@ class Solution:
             return quickselect(nums, pi + 1, r, k)
         
         def partition(nums, l, r):
+            p = randint(l, r)
+            nums[p], nums[r] = nums[r], nums[p]
             i = l
             for j in range(l, r):
                 if nums[j] > nums[r]:
