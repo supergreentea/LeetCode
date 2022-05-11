@@ -12,13 +12,13 @@ class Solution:
             return quickselect(nums, pi + 1, r, k)
         
         def partition(nums, l, r):
-            i = l - 1
+            i = l
             for j in range(l, len(nums)):
                 if nums[j] > nums[r]:
-                    i += 1
                     nums[i], nums[j] = nums[j], nums[i]
-            nums[r], nums[i + 1] = nums[i + 1], nums[r]
-            return i + 1
+                    i += 1
+            nums[r], nums[i] = nums[i], nums[r]
+            return i
         
         return quickselect(nums, 0, len(nums) - 1, k)
         
