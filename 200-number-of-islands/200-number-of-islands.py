@@ -9,8 +9,8 @@ class Solution:
             directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
             while queue:
                 pixel = queue.popleft()
-                for direction in directions:
-                    adj = (pixel[0] + direction[0], pixel[1] + direction[1])
+                for dr, dc in directions:
+                    adj = (pixel[0] + dr, pixel[1] + dc)
                     if 0 <= adj[0] < len(grid) and 0 <= adj[1] < len(grid[0]) and adj not in visited and grid[adj[0]][adj[1]] == '1':
                         queue.append(adj)
                         visited.add(adj)
