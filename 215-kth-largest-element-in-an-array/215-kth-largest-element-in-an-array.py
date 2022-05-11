@@ -5,19 +5,20 @@ class Solution:
             if l == r:
                 return nums[r]
             pi = partition(nums, l, r)
-            if pi == k - 1:
-                return nums[pi]
+            if k - 1 == pi:
+                return nums[k - 1]
             elif k - 1 < pi:
                 return quickselect(nums, l, pi - 1, k)
             return quickselect(nums, pi + 1, r, k)
         
         def partition(nums, l, r):
-            i = l
-            for j in range(l, r):
+            i = l - 1
+            for j in range(l, len(nums)):
                 if nums[j] > nums[r]:
-                    nums[j], nums[i] = nums[i], nums[j]
                     i += 1
-            nums[r], nums[i] = nums[i], nums[r]
-            return i
+                    nums[i], nums[j] = nums[j], nums[i]
+            nums[r], nums[i + 1] = nums[i + 1], nums[r]
+            return i + 1
         
         return quickselect(nums, 0, len(nums) - 1, k)
+        
