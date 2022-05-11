@@ -8,10 +8,10 @@ class Solution:
             visited.add((row, col))
             directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
             while queue:
-                pixel = queue.popleft()
+                r, c = queue.popleft()
                 for dr, dc in directions:
-                    adj = (pixel[0] + dr, pixel[1] + dc)
-                    if 0 <= adj[0] < len(grid) and 0 <= adj[1] < len(grid[0]) and adj not in visited and grid[adj[0]][adj[1]] == '1':
+                    adj = (r + dr, c + dc)
+                    if 0 <= r < len(grid) and 0 <= c < len(grid[0]) and adj not in visited and grid[r][c] == '1':
                         queue.append(adj)
                         visited.add(adj)
         
