@@ -3,5 +3,5 @@ class Solution:
         maxsubarray = subarray = nums[0]
         for i in range(1, len(nums)):
             subarray = max(nums[i], nums[i] + subarray)
-            maxsubarray = max(maxsubarray, subarray)
+            maxsubarray = max(subarray, maxsubarray)
         return maxsubarray
