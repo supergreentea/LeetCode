@@ -3,7 +3,7 @@ class Solution:
         visited = set()
         count = 0
         
-        def bfs(grid, row, col):
+        def bfs(row, col):
             queue = deque([(row, col)])
             visited.add((row, col))
             directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
@@ -19,7 +19,7 @@ class Solution:
             for col in range(len(grid[0])):
                 if (row, col) not in visited and grid[row][col] == '1':
                     count += 1
-                    bfs(grid, row, col)
+                    bfs(row, col)
         
         return count
                     
