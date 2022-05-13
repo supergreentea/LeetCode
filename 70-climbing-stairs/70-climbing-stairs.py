@@ -1,7 +1,7 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
-        i, j = 1, 1
-        for k in range(n - 1):
+        i, j = 0 , 1
+        for k in range(n):
             t = i + j
             i = j
             j = t
