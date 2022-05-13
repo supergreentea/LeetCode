@@ -1,25 +1,24 @@
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
         graph = defaultdict(list)
-        for a, b in edges:
-            graph[a].append(b)
-            graph[b].append(a)
         visited = set()
         count = 0
         
-        for node in range(n):
-            if node not in visited:
-                queue = deque([node])
-                visited.add(node)
+        for a, b in edges:
+            graph[a].append(b)
+            graph[b].append(a)
+        
+        for i in range(n):
+            if i not in visited:
+                count += 1
+                visited.add(i)
+                queue = deque([i])
                 while queue:
-                    nextNode = queue.popleft()
-                    for adj in graph[nextNode]:
+                    node = queue.popleft()
+                    for adj in graph[node]:
                         if adj not in visited:
                             queue.append(adj)
                             visited.add(adj)
-                count += 1
-                
         return count
-                
-                
-                
+        
+                    
