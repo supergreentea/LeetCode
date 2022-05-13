@@ -1,16 +1,14 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        memo = {}
+        if not nums:
+            return 0
+        dp = [None for _ in range(len(nums) + 1)]
+        N = len(nums)
+        dp[N], dp[N - 1] = 0, nums[N - 1]
         
-        def helper(i):
-            if i >= len(nums):
-                return 0
-            if i in memo:
-                return memo[i]
-            robHere = nums[i] + helper(i + 2)
-            skipHere = helper(i + 1)
-            maxMoney = max(robHere, skipHere)
-            memo[i] = maxMoney
-            return maxMoney
+        for i in range(N - 2, -1, -1):
+            dp[i] = max(dp[i + 1], dp[i + 2] + nums[i])
         
-        return helper(0)
+        return dp[0]
+        
+        
