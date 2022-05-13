@@ -2,15 +2,15 @@ class Solution:
     def rob(self, nums: List[int]) -> int:
         memo = {}
         
-        def helper(nums, i, memo):
-            if i > len(nums) - 1:
+        def helper(i):
+            if i >= len(nums):
                 return 0
             if i in memo:
                 return memo[i]
-            robHere = nums[i] + helper(nums, i + 2, memo)
-            dontRobHere = helper(nums, i + 1, memo)
-            maxmoney = max(robHere, dontRobHere)
-            memo[i] = maxmoney
-            return maxmoney
+            robHere = nums[i] + helper(i + 2)
+            skipHere = helper(i + 1)
+            maxMoney = max(robHere, skipHere)
+            memo[i] = maxMoney
+            return maxMoney
         
-        return helper(nums, 0, memo)
+        return helper(0)
