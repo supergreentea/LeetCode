@@ -12,6 +12,9 @@ class Solution:
             return nums[k - 1]
             
         def partition(nums, l, r):
+            p = randint(l, r)
+            nums[r], nums[p] = nums[p], nums[r]
+            
             i = l
             for j in range(l, r):
                 if nums[j] > nums[r]:
