@@ -1,11 +1,8 @@
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
         maxlen = 0
-        
         Dict = defaultdict(int)
-        
         maxf = 1
-        
         l = 0
         for r in range(len(s)):
             c = s[r]
