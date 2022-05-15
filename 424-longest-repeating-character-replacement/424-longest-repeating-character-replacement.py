@@ -1,9 +1,7 @@
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
-        maxlen = 0
+        maxlen = maxf = l = 0
         Dict = defaultdict(int)
-        maxf = 1
-        l = 0
         for r in range(len(s)):
             Dict[s[r]] += 1
             maxf = max(maxf, Dict[s[r]])
