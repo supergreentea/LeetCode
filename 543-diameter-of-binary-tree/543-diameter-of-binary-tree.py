@@ -8,16 +8,14 @@ class Solution:
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
         diameter = 0
         
-        def longest_path(node):
-            if not node:
-                return 0
+        def longestpath(root):
             nonlocal diameter
-            left_path = longest_path(node.left)
-            right_path = longest_path(node.right)
-
-            diameter = max(diameter, left_path + right_path)
-
-            return max(left_path, right_path) + 1
+            if not root:
+                return 0
+            left = longestpath(root.left)
+            right = longestpath(root.right)
+            diameter = max(diameter, left + right)
+            return max(left, right) + 1
         
-        longest_path(root)
+        longestpath(root)
         return diameter
