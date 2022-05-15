@@ -1,12 +1,18 @@
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
-        maxlen = maxf = l = 0
-        Dict = defaultdict(int)
+        
+        # strategy: sliding window. number of replacements needed = length of window - most frequent character count in that window
+        # we can update the most frequent character count
+        
+        maxf = 0
+        l = 0
+        count = defaultdict(int)
+        longest = 0
         for r in range(len(s)):
-            Dict[s[r]] += 1
-            maxf = max(maxf, Dict[s[r]])
+            count[s[r]] += 1
+            maxf = max(maxf, count[s[r]])
             while r - l + 1 - maxf > k:
-                Dict[s[l]] -= 1
+                count[s[l]] -= 1
                 l += 1
-            maxlen = max(maxlen, r - l + 1)
-        return maxlen
+            longest = max(longest, r - l + 1)
+        return longest
