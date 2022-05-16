@@ -8,21 +8,29 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
-        array = []
-        prev = head
-        while prev:
-            array.append(prev)
-            prev = prev.next
-        res = []
-        l, r = 0, len(array) - 1
-        while l <= r:
-            res.append(array[l])
-            res.append(array[r])
-            l += 1
-            r -= 1
-        prev = res[0]
-        for i in range(1, len(res)):
-            prev.next = res[i]
-            prev = prev.next
-        prev.next = None
         
+        # find middle
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        
+        middle = slow
+        
+        # reverse list after middle
+        
+        prev, cur = None, middle
+        while cur:
+            nxt = cur.next
+            cur.next = prev
+            prev = cur
+            cur = nxt
+        
+        # merge lists
+        first, second = head, prev
+        while second.next:
+            temp1, temp2 = first.next, second.next
+            first.next, second.next = second, temp1
+            first, second = temp1, temp2
+        
+        return first
