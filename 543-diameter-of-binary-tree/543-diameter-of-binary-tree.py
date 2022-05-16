@@ -9,13 +9,16 @@ class Solution:
         diameter = 0
         
         def longestpath(root):
-            nonlocal diameter
             if not root:
                 return 0
             left = longestpath(root.left)
             right = longestpath(root.right)
+            
+            nonlocal diameter
             diameter = max(diameter, left + right)
+            
             return max(left, right) + 1
         
         longestpath(root)
+        
         return diameter
