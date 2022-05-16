@@ -8,23 +8,18 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
-        
-        # find middle
+        # find middle of list
         slow = fast = head
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
         
-        middle = slow
-        
-        # reverse list after middle
-        
-        prev, cur = None, middle
+        # reverse second half of list
+        prev, cur = None, slow
         while cur:
             nxt = cur.next
             cur.next = prev
-            prev = cur
-            cur = nxt
+            prev, cur = cur, nxt
         
         # merge lists
         first, second = head, prev
@@ -33,4 +28,4 @@ class Solution:
             first.next, second.next = second, temp1
             first, second = temp1, temp2
         
-        return first
+        return head
