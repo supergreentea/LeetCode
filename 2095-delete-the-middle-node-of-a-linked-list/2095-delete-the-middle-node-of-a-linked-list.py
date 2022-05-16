@@ -8,10 +8,8 @@ class Solution:
         prehead = ListNode(-1, head)
         slow = prehead
         fast = head
-        while fast.next:
+        while fast and fast.next:
             slow = slow.next
-            fast = fast.next
-            if fast.next:
-                fast = fast.next
+            fast = fast.next.next
         slow.next = slow.next.next
         return prehead.next
