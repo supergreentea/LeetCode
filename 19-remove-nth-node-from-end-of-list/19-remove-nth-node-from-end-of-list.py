@@ -9,12 +9,8 @@ class Solution:
         slow, fast = prehead, head
         for i in range(n):
             fast = fast.next
-        
         while fast:
-            fast = fast.next
             slow = slow.next
-        
+            fast = fast.next
         slow.next = slow.next.next
-        
         return prehead.next
-            
