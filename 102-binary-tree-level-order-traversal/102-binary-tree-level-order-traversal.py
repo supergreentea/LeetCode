@@ -21,4 +21,3 @@ class Solution:
                     queue.append(node.right)
             res.append(level)
         return res
-        
