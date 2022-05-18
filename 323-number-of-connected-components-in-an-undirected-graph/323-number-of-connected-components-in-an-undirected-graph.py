@@ -1,22 +1,33 @@
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
         
-        visited = set()
-        count = 0
-        graph = defaultdict(list)
-        for a, b in edges:
-            graph[a].append(b)
-            graph[b].append(a)
+        par = [i for i in range(n)]
+        rank = [1] * n
         
-        def dfs(i):
-            visited.add(i)
-            for adj in graph[i]:
-                if adj not in visited:
-                    dfs(adj)
-
-        for i in range(n):
-            if i not in visited:
-                dfs(i)
-                count += 1
+        def find(i):
+            while par[i] != i:
+                par[i] = par[par[i]] # path compression
+                i = par[i]
+            return i
         
-        return count
+        def union(n1, n2):
+            p1, p2 = find(n1), find(n2)
+            
+            if p1 == p2:
+                return 0
+            
+            if rank[p2] > rank[p1]:
+                par[p1] = p2
+                rank[p2] += rank[p1]
+            else:
+                par[p2] = p1
+                rank[p1] += rank[p2]
+            return 1
+        
+        res = n
+        for n1, n2 in edges:
+            res -= union(n1, n2)
+        
+        return res
+        
+        
