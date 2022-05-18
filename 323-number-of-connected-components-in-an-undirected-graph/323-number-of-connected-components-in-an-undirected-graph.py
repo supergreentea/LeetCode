@@ -6,28 +6,23 @@ class Solution:
         
         def find(i):
             while par[i] != i:
-                par[i] = par[par[i]] # path compression
+                par[i] = par[par[i]] 
                 i = par[i]
             return i
         
-        def union(n1, n2):
-            p1, p2 = find(n1), find(n2)
-            
-            if p1 == p2:
+        def union(a, b):
+            rootA, rootB = find(a), find(b)
+            if rootA == rootB:
                 return 0
-            
-            if rank[p2] > rank[p1]:
-                par[p1] = p2
-                rank[p2] += rank[p1]
+            if rank[rootA] > rank[rootB]:
+                par[rootB] = rootA
+                rank[rootA] += rank[rootB]
             else:
-                par[p2] = p1
-                rank[p1] += rank[p2]
+                par[rootA] = rootB
+                rank[rootB] += rank[rootA]
             return 1
         
         res = n
-        for n1, n2 in edges:
-            res -= union(n1, n2)
-        
+        for a, b in edges:
+            res -= union(a, b)
         return res
-        
-        
