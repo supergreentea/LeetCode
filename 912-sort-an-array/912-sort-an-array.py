@@ -13,9 +13,9 @@ class Solution:
             i = l
             for j in range(l, r):
                 if nums[j] < nums[r]:
-                    nums[i], nums[j] = nums[j], nums[i]
+                    nums[j], nums[i] = nums[i], nums[j]
                     i += 1
-            nums[r], nums[i] = nums[i], nums[r]
+            nums[i], nums[r] = nums[r], nums[i]
             return i
         
         quicksort(nums, 0, len(nums) - 1)
