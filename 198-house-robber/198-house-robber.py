@@ -1,7 +1,7 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        dp = [None for _ in range(len(nums) + 1)]
-        dp[len(nums)], dp[len(nums) - 1] = 0, nums[-1]
-        for i in range(len(nums) - 2, -1, -1):
-            dp[i] = max(dp[i + 1], nums[i] + dp[i + 2])
-        return dp[0]
+        rob1, rob2 = 0, 0
+        for i in range(len(nums)):
+            t = max(rob1 + nums[i], rob2)
+            rob1, rob2 = rob2, t
+        return rob2
