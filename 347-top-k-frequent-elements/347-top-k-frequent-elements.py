@@ -13,4 +13,4 @@ class Solution:
                 if len(res) == k:
                     return res
         
-        return []
+        return res
