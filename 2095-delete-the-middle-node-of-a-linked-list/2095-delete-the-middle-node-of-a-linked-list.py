@@ -6,7 +6,7 @@
 class Solution:
     def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:
         prehead = ListNode(-1, head)
-        slow, fast = prehead, head # so that slow can end up right before middle node
+        slow, fast = prehead, head
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
