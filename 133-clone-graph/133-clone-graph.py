@@ -15,8 +15,8 @@ class Solution:
                 return oldToNew[node]
             copy = Node(node.val)
             oldToNew[node] = copy
-            if node.neighbors:
-                copy.neighbors = [clone(n) for n in node.neighbors]
+            for n in node.neighbors:
+                copy.neighbors.append(clone(n))
             return copy
         
         return clone(node) if node else None
