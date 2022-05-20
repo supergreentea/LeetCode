@@ -8,24 +8,29 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
-        # find middle of list
+        
+        # find middle
         slow = fast = head
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
+        # slow now points to middle node
         
-        # reverse second half of list
+        # reverse second half
         prev, cur = None, slow
         while cur:
+            # store pointer to next node
             nxt = cur.next
+            # reverse pointer for cur node
             cur.next = prev
+            # shift pointers
             prev, cur = cur, nxt
+        # prev now head of reversed half
         
-        # merge lists
+        # merge halves
         first, second = head, prev
         while second.next:
-            temp1, temp2 = first.next, second.next
-            first.next, second.next = second, temp1
-            first, second = temp1, temp2
+            first.next, first = second, first.next
+            second.next, second = first, second.next
         
         return head
