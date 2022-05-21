@@ -9,14 +9,14 @@ class Solution:
         if not root:
             return True
         
-        stack = [(root, -math.inf, math.inf)]
-        while stack:
-            root, lower, upper = stack.pop()
+        queue = deque([(root, -math.inf, math.inf)])
+        while queue:
+            root, lower, upper = queue.popleft()
             val = root.val
             if val <= lower or val >= upper:
                 return False
             if root.right:
-                stack.append((root.right, val, upper))
+                queue.append((root.right, val, upper))
             if root.left:
-                stack.append((root.left, lower, val))
+                queue.append((root.left, lower, val))
         return True
