@@ -13,6 +13,8 @@ class Solution:
                 return
             helper(root.left)
             res.append(root.val)
+            if len(res) == k:
+                return
             helper(root.right)
         
         helper(root)
