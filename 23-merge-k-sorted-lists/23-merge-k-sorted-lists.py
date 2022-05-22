@@ -11,8 +11,8 @@ class Solution:
             while l:
                 nodes.append(l.val)
                 l = l.next
-        sortedList = sorted(nodes)
-        for node in sortedList:
-            prev.next = ListNode(node)
+        nodes.sort()
+        for val in nodes:
+            prev.next = ListNode(val)
             prev = prev.next
         return prehead.next
