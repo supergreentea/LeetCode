@@ -7,18 +7,14 @@
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
         stack, prev = [], -math.inf
-        
-        while stack or root:
-            while root:
-                stack.append(root)
-                root = root.left
-            root = stack.pop()
-            
-            # if next element in inorder traversal is smaller than previos one that's not bst
-            if root.val <= prev:
+        cur = root
+        while stack or cur:
+            while cur:
+                stack.append(cur)
+                cur = cur.left
+            node = stack.pop()
+            if node.val <= prev:
                 return False
-            
-            prev = root.val
-            root = root.right
-        
+            prev = node.val
+            cur = node.right
         return True
