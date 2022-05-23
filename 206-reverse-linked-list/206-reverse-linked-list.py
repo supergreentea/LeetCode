@@ -10,5 +10,4 @@ class Solution:
             t = cur.next
             cur.next = prev
             prev, cur = cur, t
-        
         return prev
