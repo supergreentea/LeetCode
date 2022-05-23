@@ -1,13 +1,13 @@
 class Solution:
     def maxDepth(self, root):
-        stack, depth = [], 0
         if not root:
-            return depth
-        stack.append((1, root))
+            return 0
+        
+        depth, stack = 0, [(root, 1)]
         while stack:
-            current_depth, root = stack.pop()
+            root, cur_depth = stack.pop()
             if root:
-                depth = max(depth, current_depth)
-                stack.append((current_depth + 1, root.left))
-                stack.append((current_depth + 1, root.right))
+                depth = max(depth, cur_depth)
+                stack.append((root.left, cur_depth + 1))
+                stack.append((root.right, cur_depth + 1))
         return depth
