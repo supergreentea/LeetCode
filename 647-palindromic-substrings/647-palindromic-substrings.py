@@ -12,5 +12,6 @@ class Solution:
         for i in range(len(s)):
             expand(i, i)
             expand(i, i + 1)
-        
         return res
+            
+                
