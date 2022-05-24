@@ -1,15 +1,11 @@
 class Solution:
     def findCircleNum(self, isConnected: List[List[int]]) -> int:
         n = len(isConnected)
-        par = [i for i in range(n)]
-        rank = [1] * n
-        
-        res = n
-        
+        par, rank = [i for i in range(n)], [1] * n
         
         def find(n1):
             while n1 != par[n1]:
-                par[n1] = par[par[n1]]
+                par[n1] = par[par[n1]] # path compression
                 n1 = par[n1]
             return n1
         
@@ -25,9 +21,10 @@ class Solution:
                 rank[p2] += rank[p1]
             return 1
         
+        res = n
         for i in range(n):
             for j in range(n):
                 if isConnected[i][j] == 1:
                     res -= union(i, j)
-        
+
         return res
