@@ -1,28 +1,25 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
+        maxRows, maxCols = len(grid), len(grid[0])
         visited = set()
         count = 0
-        maxRows, maxCols = len(grid), len(grid[0])
         
         def bfs(row, col):
-            directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
             queue = deque([(row, col)])
-            visited.add((row, col))
-            
+            directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
             while queue:
-                currow, curcol = queue.popleft()
-                for d in directions:
-                    adjrow, adjcol = currow + d[0], curcol + d[1]
-                    if 0 <= adjrow < maxRows and 0 <= adjcol < maxCols and grid[adjrow][adjcol] == '1' and (adjrow, adjcol) not in visited:
-                        queue.append((adjrow, adjcol))
-                        visited.add((adjrow, adjcol))
+                r, c = queue.popleft()
+                for dr, dc in directions:
+                    nr, nc = r + dr, c + dc
+                    if 0 <= nr < maxRows and 0 <= nc < maxCols and grid[nr][nc] == '1' and (nr, nc) not in visited:
+                        queue.append((nr, nc))
+                        visited.add((nr, nc))
         
-        for row in range(maxRows):
-            for col in range(maxCols):
-                if (row, col) not in visited and grid[row][col] == '1':
-                    bfs(row, col)
+        for i in range(maxRows):
+            for j in range(maxCols):
+                if grid[i][j] == '1' and (i, j) not in visited:
+                    bfs(i, j)
                     count += 1
         
         return count
-                
                 
