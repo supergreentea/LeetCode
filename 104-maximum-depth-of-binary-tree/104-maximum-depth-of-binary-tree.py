@@ -1,13 +1,9 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-    def maxDepth(self, root):
-        if not root:
-            return 0
-        
-        depth, stack = 0, [(root, 1)]
-        while stack:
-            root, cur_depth = stack.pop()
-            if root:
-                depth = max(depth, cur_depth)
-                stack.append((root.left, cur_depth + 1))
-                stack.append((root.right, cur_depth + 1))
-        return depth
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        return max(self.maxDepth(root.left), self.maxDepth(root.right)) + 1 if root else 0
