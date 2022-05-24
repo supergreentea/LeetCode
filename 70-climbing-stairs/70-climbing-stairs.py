@@ -3,6 +3,5 @@ class Solution:
         i, j = 0, 1
         for _ in range(n):
             t = i + j
-            i = j
-            j = t
+            i, j = j, t
         return j
