@@ -1,13 +1,14 @@
 class Solution:
     def sortArray(self, nums: List[int]) -> List[int]:
         
-        def quicksort(nums, l, r):
+        def quicksort(l, r):
             if l < r:
-                pi = partition(nums, l, r)
-                quicksort(nums, l, pi - 1)
-                quicksort(nums, pi + 1, r)
+                pi = partition(l, r)
+                quicksort(l, pi - 1)
+                quicksort(pi + 1, r)
+            
         
-        def partition(nums, l, r):
+        def partition(l, r):
             p = randint(l, r)
             nums[p], nums[r] = nums[r], nums[p]
             i = l
@@ -18,5 +19,6 @@ class Solution:
             nums[i], nums[r] = nums[r], nums[i]
             return i
         
-        quicksort(nums, 0, len(nums) - 1)
+        quicksort(0, len(nums) - 1)
         return nums
+            
