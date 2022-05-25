@@ -8,25 +8,25 @@ class Solution:
         if not lists or len(lists) == 0:
             return None
         
-        def mergeTwoLists(list1, list2):
+        def mergeTwoLists(p, q):
             head = pointer = ListNode(0)
-            while list1 and list2:
-                if list1.val < list2.val:
-                    pointer.next = list1
-                    list1 = list1.next
+            while p and q:
+                if p.val < q.val:
+                    pointer.next = p
+                    p = p.next
                 else:
-                    pointer.next = list2
-                    list2 = list2.next
+                    pointer.next = q
+                    q = q.next
                 pointer = pointer.next
-            pointer.next = list1 if list1 else list2
+            pointer.next = p if p else q
             return head.next
         
         while len(lists) > 1:
             merged_lists = []
             for i in range(0, len(lists), 2):
-                list1 = lists[i]
-                list2 = lists[i + 1] if i + 1 < len(lists) else None
-                merged_lists.append(mergeTwoLists(list1, list2))
+                p = lists[i]
+                q = lists[i + 1] if i + 1 < len(lists) else None
+                merged_lists.append(mergeTwoLists(p, q))
             lists = merged_lists
-        
         return lists[0]
+        
