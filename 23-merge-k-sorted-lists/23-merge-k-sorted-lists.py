@@ -28,5 +28,6 @@ class Solution:
                 q = lists[i + 1] if i + 1 < len(lists) else None
                 merged_lists.append(mergeTwoLists(p, q))
             lists = merged_lists
+            
         return lists[0]
         
