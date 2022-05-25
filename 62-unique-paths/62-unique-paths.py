@@ -1,5 +1,7 @@
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
+        # O(m * n) time
+        # O(m * n) space
         dp = [[1] * n for _ in range(m)]
         for row in range(1, m):
             for col in range(1, n):
