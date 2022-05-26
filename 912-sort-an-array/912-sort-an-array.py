@@ -6,17 +6,16 @@ class Solution:
                 pi = partition(l, r)
                 quicksort(l, pi - 1)
                 quicksort(pi + 1, r)
-            
         
         def partition(l, r):
             p = randint(l, r)
-            nums[p], nums[r] = nums[r], nums[p]
+            nums[r], nums[p] = nums[p], nums[r]
             i = l
             for j in range(l, r):
                 if nums[j] < nums[r]:
-                    nums[j], nums[i] = nums[i], nums[j]
+                    nums[i], nums[j] = nums[j], nums[i]
                     i += 1
-            nums[i], nums[r] = nums[r], nums[i]
+            nums[r], nums[i] = nums[i], nums[r]
             return i
         
         quicksort(0, len(nums) - 1)
