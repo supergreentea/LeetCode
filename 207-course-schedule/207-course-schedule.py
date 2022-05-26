@@ -13,12 +13,12 @@ class Solution:
             if graph[course] == []:
                 return True # no prerequisitees or prerequisites can be finished
             
-            visited.add(course)
+            visited.add(course) # add course to dfs stack
             for pre in graph[course]:
                 if not dfs(pre):
                     return False
             graph[course] = []
-            visited.remove(course)
+            visited.remove(course) # course no longer on dfs stack
             return True
         
         for course in range(numCourses):
