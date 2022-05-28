@@ -11,3 +11,4 @@ class Solution:
             cur.next = prev
             prev, cur = cur, t
         return prev
+            
