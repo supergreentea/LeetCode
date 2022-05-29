@@ -11,10 +11,9 @@ class Solution:
             if c in visited:
                 return False # already on recursion stack, indicates a cycle
             if graph[c] == []:
-                return True
-            
+                return True            
             visited.add(c)
-            
+
             for p in graph[c]:
                 if not dfs(p):
                     return False
