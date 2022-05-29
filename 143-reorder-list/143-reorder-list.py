@@ -9,23 +9,18 @@ class Solution:
         Do not return anything, modify head in-place instead.
         """
         
-        # find middle
+        # find middle of list
         slow = fast = head
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-        # slow now points to middle node
         
         # reverse second half
         prev, cur = None, slow
         while cur:
-            # store pointer to next node
             nxt = cur.next
-            # reverse pointer for cur node
             cur.next = prev
-            # shift pointers
             prev, cur = cur, nxt
-        # prev now head of reversed half
         
         # merge halves
         first, second = head, prev
@@ -33,4 +28,3 @@ class Solution:
             first.next, first = second, first.next
             second.next, second = first, second.next
         
-        return head
