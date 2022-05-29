@@ -6,23 +6,24 @@ class Solution:
         for a, b in prerequisites:
             graph[a].append(b)
         
-        visited = set()
-        def dfs(c):
+        def dfs(c, visited):
             if c in visited:
                 return False # already on recursion stack, indicates a cycle
-            if graph[c] == []:
-                return True            
+            
             visited.add(c)
-
+            if graph[c] == []:
+                visited.remove(c)
+                return True
+            
             for p in graph[c]:
-                if not dfs(p):
+                if not dfs(p, visited):
                     return False
             graph[c] = []
             visited.remove(c)
             return True
         
         for c in range(numCourses):
-            if not dfs(c):
+            if not dfs(c, set()):
                 return False
         return True
             
