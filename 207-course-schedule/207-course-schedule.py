@@ -9,12 +9,11 @@ class Solution:
         def dfs(c, visited):
             if c in visited:
                 return False # already on recursion stack, indicates a cycle
-            
-            visited.add(c)
+
             if graph[c] == []:
-                visited.remove(c)
                 return True
-            
+            visited.add(c)
+
             for p in graph[c]:
                 if not dfs(p, visited):
                     return False
