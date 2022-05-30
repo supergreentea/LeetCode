@@ -1,43 +1,33 @@
 class Solution:
     def solveNQueens(self, n: int) -> List[List[str]]:
         
-        def create_board(state):
-            board = []
-            for row in state:
-                board.append("".join(row))
-            return board
-        
-        def backtrack(row, diagonals, anti_diagonals, cols, state):
+        def backtrack(row):
             if row == n:
-                ans.append(create_board(state))
-                return
-        
+                solution = []
+                for r in board:
+                    solution.append("".join(r))
+                output.append(solution)
+            
             for col in range(n):
-                curr_diagonal = row - col
-                curr_anti_diagonal = row + col
-                
-                # queen is not placeable
-                if (col in cols or curr_diagonal in diagonals or curr_anti_diagonal in anti_diagonals):
+                # continue if queen cannot be placed
+                if (col in cols) or (row - col in diag) or (row + col) in antidiag:
                     continue
-                
-                # add queen to the board
+                # place queen
+                board[row][col] = "Q"
                 cols.add(col)
-                diagonals.add(curr_diagonal)
-                anti_diagonals.add(curr_anti_diagonal)
-                state[row][col] = "Q"
+                diag.add(row - col)
+                antidiag.add(row + col)
                 
-                # move to next row with the updated board state
-                backtrack(row + 1, diagonals, anti_diagonals, cols, state)
+                backtrack(row + 1)
                 
-                # remove queen from board since we have already explored all valid paths
+                # remove queen
+                board[row][col] = "."
                 cols.remove(col)
-                diagonals.remove(curr_diagonal)
-                anti_diagonals.remove(curr_anti_diagonal)
-                state[row][col] = "."
-                
-        ans = []
-        empty_board = [["."] * n for _ in range(n)]
-        backtrack(0, set(), set(), set(), empty_board)
-        return ans
-                
-                
+                diag.remove(row - col)
+                antidiag.remove(row + col)
+        
+        output = []
+        board = [["."] * n for _ in range(n)]
+        cols, diag, antidiag = set(), set(), set()
+        backtrack(0)
+        return output
