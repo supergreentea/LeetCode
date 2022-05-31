@@ -2,18 +2,19 @@ class Solution:
     def longestPalindrome(self, s: str) -> str:
         start = end = 0
         
-        def expandAroundCenter(low, high):
+        def expand(l, r):
             nonlocal start
             nonlocal end
-            while 0 <= low and high < len(s) and s[low] == s[high]:
-                if high - low > end - start:
-                    start, end = low, high
-                low -= 1
-                high += 1
+            while l >= 0 and r < len(s) and s[l] == s[r]:
+                if r - l > end - start:
+                    start, end = l, r
+                l-= 1
+                r += 1
         
         for i in range(len(s)):
-            expandAroundCenter(i, i)
-            expandAroundCenter(i, i + 1)
+            expand(i, i)
+            expand(i, i + 1)
         
         return s[start : end + 1]
-                
+        
+        
