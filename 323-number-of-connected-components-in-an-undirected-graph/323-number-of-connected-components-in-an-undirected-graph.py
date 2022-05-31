@@ -1,15 +1,17 @@
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
-        par, rank = [i for i in range(n)], [1] * n
         
-        def find(n1):
-            while n1 != par[n1]:
-                par[n1] = par[par[n1]] # path compression
-                n1 = par[n1]
-            return n1
+        par = [i for i in range(n)]
+        rank = [1] * n
         
-        def union(n1, n2):
-            p1, p2 = find(n1), find(n2)
+        def find(i):
+            while i != par[i]:
+                par[i] = par[par[i]]
+                i = par[i]
+            return i
+        
+        def union(a, b):
+            p1, p2 = find(a), find(b)
             if p1 == p2:
                 return 0
             if rank[p1] > rank[p2]:
@@ -20,7 +22,7 @@ class Solution:
                 rank[p2] += rank[p1]
             return 1
         
-        for n1, n2 in edges:
-            n -= union(n1, n2)
-            
+        for a, b in edges:
+            n -= union(a, b)
+        
         return n
