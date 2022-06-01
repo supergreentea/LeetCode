@@ -24,7 +24,7 @@ class Solution:
             if len(res) >= 1 and res[-1] == cur.char:
                 if not heap: # last element in heap forces us to break condition
                     return res
-                cur = heapq.heappop(heap) # get another element
+                cur = heapq.heappop(heap) # get another element to avoid making three or more consecutive of one character
                 heapq.heappush(heap, prev) # push prev element back to heap
                 
             t = min(cur.count, 2) if prev == cur else 1 # always choose 1 if less frequent char is used
