@@ -11,13 +11,8 @@ class Freq:
 
 class Solution:
     def longestDiverseString(self, a: int, b: int, c: int) -> str:
-        heap = []
-        if a > 0:
-            heap.append(Freq("a", a))
-        if b > 0:
-            heap.append(Freq("b", b))
-        if c > 0:
-            heap.append(Freq("c", c))
+        freqs = [Freq("a", a), Freq("b", b), Freq("c", c)]
+        heap = list(filter(lambda x : x.count > 0, freqs))
 
         heapq.heapify(heap)
         res = ""
@@ -28,7 +23,6 @@ class Solution:
             
             if len(res) >= 1 and res[-1] == cur.char:
                 if not heap: # last element in heap forces us to break condition
-                    print("empty heap")
                     return res
                 cur = heapq.heappop(heap) # get another element
                 heapq.heappush(heap, prev) # push prev element back to heap
