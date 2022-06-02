@@ -1,6 +1,5 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        candidates.sort()
         res = []
         
         def backtrack(i, comb, comb_sum):
