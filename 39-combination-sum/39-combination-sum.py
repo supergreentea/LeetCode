@@ -1,17 +1,22 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        candidates.sort()
         res = []
         
-        def backtrack(cur_index, combination, total):
-            if total > target:
+        def backtrack(i, comb, comb_sum):
+            if comb_sum == target:
+                res.append(comb.copy())
                 return
-            if total == target:
-                res.append(combination.copy())
+            
+            if i == len(candidates):
                 return
-            for i in range(cur_index, len(candidates)):
-                combination.append(candidates[i])
-                backtrack(i, combination, total + candidates[i])
-                combination.pop()
+            
+            for j in range(i, len(candidates)):
+                if comb_sum + candidates[j] > target:
+                    continue
+                comb.append(candidates[j])
+                backtrack(j, comb, comb_sum + candidates[j])
+                comb.pop()
         
         backtrack(0, [], 0)
         return res
