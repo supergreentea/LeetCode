@@ -1,15 +1,18 @@
 class Solution:
     def findCircleNum(self, isConnected: List[List[int]]) -> int:
         n = len(isConnected)
+        
+        # O(n) space
         par = [i for i in range(n)]
         rank = [1] * n
         
+        # O(n) in worst case
         def find(i):
             while i != par[i]:
                 par[i] = par[par[i]]
                 i = par[i]
             return i
-        
+        # O(n) in worse case
         def union(i, j):
             p1, p2 = find(i), find(j)
             if p1 == p2:
