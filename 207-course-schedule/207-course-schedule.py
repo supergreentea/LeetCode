@@ -1,30 +1,26 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         graph = defaultdict(list)
+        
         for a, b in prerequisites:
             graph[a].append(b)
         
         visited = set()
-        
-        def dfs(c):
-            if graph[c] == []:
-                return True # course has no prerequisites
+        def dfs(course):
+            if graph[course] == []:
+                return True # no prerequisites for this course
+            if course in visited:
+                return False # cycle detected
             
-            if c in visited:
-                return False # course already on recursion stack so there is cycle
-            
-            visited.add(c)
-            for p in graph[c]:
+            visited.add(course)
+            for p in graph[course]:
                 if not dfs(p):
                     return False
-            
-            graph[c] = []
-                
+            graph[course] = []
             return True
         
-        for c in range(numCourses):
-            if not dfs(c):
+        for i in range(0, numCourses):
+            if not dfs(i):
                 return False
         
         return True
-        
