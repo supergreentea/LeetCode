@@ -8,15 +8,16 @@ class Solution:
                 return m
             
             # left sorted array
-            if nums[m] >= nums[l]:
+            if nums[l] <= nums[m]:
                 if target > nums[m] or target < nums[l]:
                     l = m + 1
                 else:
                     r = m - 1
+                
+            # right sorted array    
             else:
                 if target < nums[m] or target > nums[r]:
                     r = m - 1
                 else:
                     l = m + 1
-                    
         return -1
