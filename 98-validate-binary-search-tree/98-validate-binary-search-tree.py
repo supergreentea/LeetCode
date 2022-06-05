@@ -8,7 +8,7 @@ class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
         
         def dfs(root, low, high):
-            if not root:
+            if not root: 
                 return True
             if root.val <= low or root.val >= high:
                 return False
