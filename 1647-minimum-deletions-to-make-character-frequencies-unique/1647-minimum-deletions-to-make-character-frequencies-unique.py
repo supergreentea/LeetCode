@@ -1,17 +1,14 @@
 class Solution:
     def minDeletions(self, s: str) -> int:
-        deletions = 0
-        freqs = [0] * 26
+        delete_count = 0
+        frequencies = [0] * 26
         for c in s:
-            freqs[ord(c) - ord('a')] += 1
-        freqs.sort(reverse = True)
+            frequencies[ord(c) - ord('a')] += 1
+        frequencies.sort(reverse=True)
         max_allowed = len(s)
-        
-        for freq in freqs:
-            if freq > max_allowed:
-                deletions += freq - max_allowed
-                freq = max_allowed
-            
-            max_allowed = max(0, freq - 1)
-                
-        return deletions
+        for frequency in frequencies:
+            if frequency > max_allowed:
+                delete_count += frequency - max_allowed
+                frequency = max_allowed
+            max_allowed = max(0, frequency - 1)
+        return delete_count
