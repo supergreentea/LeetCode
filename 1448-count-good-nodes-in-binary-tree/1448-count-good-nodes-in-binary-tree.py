@@ -9,16 +9,15 @@ class Solution:
         
         good_nodes = 0
         
-        def dfs(root, max_on_path):
+        def dfs(root, max_value):
             nonlocal good_nodes
             if not root:
-                return 
-            if root.val >= max_on_path:
+                return
+            if root.val >= max_value:
                 good_nodes += 1
-            max_on_path = max(max_on_path, root.val)
-            dfs(root.left, max_on_path)
-            dfs(root.right, max_on_path)
+            new_max = max(max_value, root.val)
+            dfs(root.left, new_max)
+            dfs(root.right, new_max)
         
         dfs(root, -math.inf)
-        
         return good_nodes
