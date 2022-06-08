@@ -1,16 +1,31 @@
 class Solution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        buckets = [[] for _ in range(len(nums) + 1)]
-        count = Counter(nums)
-        res = []
+    def topKFrequent(self, arr: List[int], k: int) -> List[int]:
+        frequencies = Counter(arr)
+        nums = list(frequencies.keys())
         
-        for key, value in count.items():
-            buckets[value].append(key)
+        def quickselect(l, r):
+            if l == r:
+                return nums[l]
+            pi = partition(l, r)
+            if k - 1 < pi:
+                return quickselect(l, pi - 1)
+            elif k - 1 > pi:
+                return quickselect(pi + 1, r)
+            return nums[k - 1]
         
-        for i in range(len(nums), -1, -1):
-            for n in buckets[i]:
-                res.append(n)
-                if len(res) == k:
-                    return res
+        def partition(l, r):
+            p = randint(l, r)
+            nums[p], nums[r] = nums[r], nums[p]
+            i = l
+            for j in range(l, r):
+                if frequencies[nums[j]] > frequencies[nums[r]]:
+                    nums[i], nums[j] = nums[j], nums[i]
+                    i += 1
+            nums[i], nums[r] = nums[r], nums[i]
+            return i
         
-        return res
+        quickselect(0, len(nums) - 1)
+        return nums[:k]
+        
+        
+            
