@@ -3,14 +3,14 @@ class Solution:
         rooms = []
         heapq.heapify(rooms)
         
-        intervals.sort(key = lambda x: x[0])
+        intervals.sort(key = lambda x : x[0])
         
         heapq.heappush(rooms, intervals[0][1])
         
         for i in range(1, len(intervals)):
-            start, end = intervals[i]
-            if rooms[0] <= start:
+            if rooms[0] <= intervals[i][0]:
                 heapq.heappop(rooms)
-            heapq.heappush(rooms, end)
+            heapq.heappush(rooms, intervals[i][1])
         
         return len(rooms)
+                
