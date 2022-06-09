@@ -11,7 +11,7 @@ class Solution:
         
         while l < r:
             m = (l + r) // 2
-            hours = eating_time(m)
+            hours = sum(math.ceil(pile / m) for pile in piles)
             
             if hours <= h:
                 r = m 
