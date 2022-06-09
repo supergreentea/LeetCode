@@ -9,6 +9,7 @@ class Solution:
         while cur:
             t = cur.next
             cur.next = prev
+            prev = cur
+            
             prev, cur = cur, t
         return prev
-            
