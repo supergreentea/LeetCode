@@ -1,21 +1,17 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
         ans = 0
-        n = len(height)
-        l, r = 0, n - 1
-        max_left = max_right = 0
-        
-        while l < r:
-            if height[l] < height[r]:
-                if height[l] >= max_left:
-                    max_left = height[l]
-                else:
-                    ans += max_left - height[l]
-                l += 1
-            else:
-                if height[r] >= max_right:
-                    max_right = height[r]
-                else:
-                    ans += max_right - height[r]
-                r -= 1
+        stack = []
+        curr = 0
+        while curr < len(height):
+            while len(stack) > 0 and height[curr] > height[stack[-1]]:
+                top = stack.pop()
+                if len(stack) == 0:
+                    break
+                distance = curr - stack[-1] - 1
+                bounded_height = min(height[curr], height[stack[-1]]) - height[top]
+                ans += distance * bounded_height
+            stack.append(curr)
+            curr += 1
         return ans
+                
