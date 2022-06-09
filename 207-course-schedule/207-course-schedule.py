@@ -1,26 +1,31 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        graph = defaultdict(list)
-        for crs, pre in prerequisites:
-            graph[crs].append(pre)
+        prereqs = defaultdict(list)
         
-        cycle, visited = set(), set()
+        # build adjacency list representation of directed graph
+        for crs, prereq in prerequisites:
+            prereqs[crs].append(prereq)
+            
+        on_path, explored = set(), set()
+        
         def dfs(crs):
-            if crs in cycle:
+            if crs in on_path: # cycle
                 return False
-            if crs in visited:
+            if crs in explored: # already explored
                 return True
             
-            cycle.add(crs)
-            for pre in graph[crs]:
-                if dfs(pre) == False:
+            on_path.add(crs)
+            for pre in prereqs[crs]:
+                if not dfs(pre):
                     return False
-            cycle.remove(crs)
-            visited.add(crs)
+            on_path.remove(crs)
+            explored.add(crs)
             return True
         
         for crs in range(numCourses):
             if not dfs(crs):
                 return False
+        
         return True
-            
+        
+        
