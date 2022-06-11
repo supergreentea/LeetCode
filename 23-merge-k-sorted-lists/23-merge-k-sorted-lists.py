@@ -5,6 +5,8 @@
 #         self.next = next
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        if not lists:
+            return None
         
         def merge(p, q):
             cur = prehead = ListNode(0)
@@ -20,11 +22,11 @@ class Solution:
             return prehead.next
         
         while len(lists) > 1:
-            merged = []
+            merged_lists = []
             for i in range(0, len(lists), 2):
                 p = lists[i]
                 q = lists[i + 1] if i + 1 < len(lists) else None
-                merged.append(merge(p, q))
-            lists = merged
-            
-        return lists[0] if lists else None
+                merged_lists.append(merge(p, q))
+            lists = merged_lists
+        
+        return lists[0]
