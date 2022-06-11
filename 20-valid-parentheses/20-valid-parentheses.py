@@ -10,4 +10,4 @@ class Solution:
                     return False
             else:
                 stack.append(c)
-        return len(stack) == 0
+        return not stack
