@@ -3,20 +3,20 @@ class Solution:
         total_sum = sum(nums)
         if total_sum % k != 0:
             return False
-        target_sum = total_sum // k
+        target = total_sum // k
         n = len(nums)
         taken = ['0'] * n
         memo = {}
         
         def backtrack(index, count, curr_sum):
+            if curr_sum > target:
+                return False
             if count == k - 1:
                 return True
-            if curr_sum > target_sum:
-                return False
             taken_str = ''.join(taken)
             if taken_str in memo:
                 return memo[taken_str]
-            if curr_sum == target_sum:
+            if curr_sum == target:
                 memo[taken_str] = backtrack(0, count + 1, 0)
                 return memo[taken_str]
             for i in range(index, n):
@@ -29,3 +29,4 @@ class Solution:
             return False
         
         return backtrack(0, 0, 0)
+                    
