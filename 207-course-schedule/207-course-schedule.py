@@ -1,21 +1,20 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        prereqs = defaultdict(list)
         
-        # build adjacency list representation of directed graph
-        for crs, prereq in prerequisites:
-            prereqs[crs].append(prereq)
-            
+        graph = defaultdict(list)
+        for crs, pre in prerequisites:
+            graph[crs].append(pre)
+        
         on_path, explored = set(), set()
         
         def dfs(crs):
-            if crs in on_path: # cycle
+            if crs in on_path:
                 return False
-            if crs in explored: # already explored
+            if crs in explored:
                 return True
             
             on_path.add(crs)
-            for pre in prereqs[crs]:
+            for pre in graph[crs]:
                 if not dfs(pre):
                     return False
             on_path.remove(crs)
@@ -27,5 +26,3 @@ class Solution:
                 return False
         
         return True
-        
-        
