@@ -4,7 +4,7 @@ class Solution:
         par = [i for i in range(n)]
         rank = [1] * n
         
-        num_provinces = n
+        provinces = n
         
         def find(i):
             while i != par[i]:
@@ -27,6 +27,6 @@ class Solution:
         for i in range(n - 1):
             for j in range(i + 1, n):
                 if isConnected[i][j] == 1:
-                    num_provinces -= union(i, j)
+                    provinces -= union(i, j)
         
-        return num_provinces
+        return provinces
