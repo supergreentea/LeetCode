@@ -1,17 +1,23 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
+        # water trapped at position = min(max from left, max from right) - current height
         ans = 0
-        stack = []
-        curr = 0
-        while curr < len(height):
-            while len(stack) > 0 and height[curr] > height[stack[-1]]:
-                top = stack.pop()
-                if len(stack) == 0:
-                    break
-                distance = curr - stack[-1] - 1
-                bounded_height = min(height[curr], height[stack[-1]]) - height[top]
-                ans += distance * bounded_height
-            stack.append(curr)
-            curr += 1
+        n = len(height)
+        max_l, max_r = height[0], height[n - 1]
+        l, r = 0, n - 1
+        while l < r:
+            if height[l] < height[r]:
+                if height[l] > max_l:
+                    max_l = height[l]
+                else:
+                    ans += max_l - height[l]
+                l += 1
+            else:
+                if height[r] > max_r:
+                    max_r = height[r]
+                else:
+                    ans += max_r - height[r]
+                r -= 1
         return ans
                 
+        
