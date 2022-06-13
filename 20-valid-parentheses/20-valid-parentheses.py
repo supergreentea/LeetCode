@@ -1,9 +1,9 @@
 class Solution:
     def isValid(self, s: str) -> bool:
+        closeToOpen = { "}" : "{", "]" : "[", ")" : "(" }
         stack = []
-        closeToOpen = { ")" : "(", "}" : "{", "]" : "[" }
         for c in s:
-            if c in closeToOpen: # closing bracket
+            if c in closeToOpen:
                 if stack and stack[-1] == closeToOpen[c]:
                     stack.pop()
                 else:
@@ -11,3 +11,4 @@ class Solution:
             else:
                 stack.append(c)
         return not stack
+        
