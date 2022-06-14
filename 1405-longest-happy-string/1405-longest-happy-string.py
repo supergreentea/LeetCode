@@ -1,41 +1,46 @@
-class Freq:
+"""
+Maintain a max heap for the most frequent letter
+Try to use 2 of the most frequent letter at a time
+If most frequent letter was used previously, use 1 of the next most frequent letter
+This is to maximize opportunitites to use the most frequent letter. If we use 2 of the next most frequent letter,
+we may end up in a situation where we've exhausted all of the less frequent letters before we were able to use up the most frequent character.
+"""
+
+class CharFreq:
     
-    def __init__(self, char, count):
-        self.char, self.count = char, count
-        
+    def __init__(self, char, freq):
+        self.char, self.freq = char, freq
+    
     def __lt__(self, other):
-        return other.count < self.count
+        return self.freq > other.freq
 
 class Solution:
     def longestDiverseString(self, a: int, b: int, c: int) -> str:
-        max_heap = []
-        heapq.heapify(max_heap)
-        if a > 0:
-            heapq.heappush(max_heap, Freq("a", a))
-        if b > 0:
-            heapq.heappush(max_heap, Freq("b", b))
-        if c > 0:
-            heapq.heappush(max_heap, Freq("c", c))
-        
-        output = ""
-        while max_heap:
-            c = heapq.heappop(max_heap)
-            if len(output) > 1 and c.char == output[-1]:
-                if len(max_heap) == 0:
-                    return output
-                next_c = heapq.heappop(max_heap)
-                output += next_c.char
-                next_c.count -= 1
-                if next_c.count > 0:
-                    heapq.heappush(max_heap, next_c)
-                heapq.heappush(max_heap, c)
+        heap = []
+        for char, freq in [("a", a), ("b", b), ("c", c)]:
+            if freq > 0:
+                heap.append(CharFreq(char, freq))
+        heapq.heapify(heap)
+        res = ""
+        while heap:
+            most_freq = heapq.heappop(heap)
+            if len(res) > 0 and res[-1] == most_freq.char:
+                if not heap:
+                    return res
+                next_most_freq = heapq.heappop(heap)
+                res += next_most_freq.char
+                next_most_freq.freq -= 1
+                if next_most_freq.freq > 0:
+                    heapq.heappush(heap, next_most_freq)
+                heapq.heappush(heap, most_freq)
             else:
-                if c.count >= 2:
-                    output += c.char * 2
-                    c.count -= 2
-                else:
-                    output += c.char
-                    c.count -= 1
-                if c.count > 0:
-                    heapq.heappush(max_heap, c)
-        return output
+                num_to_use = 1 if most_freq.freq < 2 else 2
+                res += num_to_use * most_freq.char
+                most_freq.freq -= num_to_use
+                if most_freq.freq > 0:
+                    heapq.heappush(heap, most_freq)
+        return res
+        
+        
+        
+            
