@@ -7,9 +7,8 @@ class Solution:
         
         for c in t:
             t_count[c] += 1
-        
+
         have, need = 0, len(t_count)
-        
         res_left, res_right = 0, len(s)
         
         l = 0
@@ -27,6 +26,7 @@ class Solution:
                         l += 1
         if res_right == len(s):
             return ""
+        
         return s[res_left : res_right + 1]
         
         
