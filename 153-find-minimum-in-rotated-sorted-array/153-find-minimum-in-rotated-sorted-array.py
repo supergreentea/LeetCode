@@ -14,8 +14,8 @@ class Solution:
                 return nums[m + 1]
             if nums[m] < nums[m - 1]:
                 return nums[m]
-            if nums[0] < nums[m]:
+            if nums[0] < nums[m]: # left of inflection point, so go right
                 l = m + 1
             else:
-                r = m - 1
+                r = m - 1 # right of inflection point, so go left
                 
