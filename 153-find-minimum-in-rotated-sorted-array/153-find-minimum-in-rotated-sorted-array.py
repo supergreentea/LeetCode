@@ -6,7 +6,7 @@ class Solution:
         if nums[0] <= nums[-1]:
             return nums[0]
         
-        # binary search (log(N) time complexity):
+        # binary search (log(N) time complexity) to find inflection point:
         l, r = 0, n - 1
         while l <= r:
             m = (l + r) // 2
