@@ -1,18 +1,21 @@
 class Solution:
     def findMin(self, nums: List[int]) -> int:
-        if len(nums) == 1:
+        n = len(nums)
+        
+        # if no rotation return first element
+        if nums[0] <= nums[-1]:
             return nums[0]
-        l, r = 0, len(nums) - 1
-        if nums[l] < nums[r]:
-            return nums[l]
+        
+        # binary search (log(N) time complexity):
+        l, r = 0, n - 1
         while l <= r:
             m = (l + r) // 2
             if nums[m] > nums[m + 1]:
                 return nums[m + 1]
             if nums[m] < nums[m - 1]:
                 return nums[m]
-            if nums[m] > nums[0]:
+            if nums[0] < nums[m]:
                 l = m + 1
             else:
                 r = m - 1
-        
+                
