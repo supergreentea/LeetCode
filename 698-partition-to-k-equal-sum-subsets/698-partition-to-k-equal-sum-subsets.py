@@ -22,6 +22,13 @@ for i in range(index, len(nums)):
         mark element at i as unused so i can be used in other backtracking paths
 if we were not able to find a successful backtracking path to form k sets, we return False
 
+Time complexity: O(N * 2 ^ N)
+- For each element, we decide to either include or exclude the element for a subset. So 2 branches for each element, and there are N elements.
+- Every combination needs to be linearly iterated.
+
+Space complexiy: O(N * 2 ^ N)
+- There will be 2 ^ N unique combinations of the taken string, and each string of size N will be stored in the map. The recursive stack will use at most O(N) space at any time.
+
 """
 
 
