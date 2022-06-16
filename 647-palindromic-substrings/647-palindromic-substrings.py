@@ -1,3 +1,15 @@
+"""
+Expand around center:
+At each index, try to expand outwards from index using two indices
+
+Time complexity:
+O(N ^ 2) where N is length of s
+
+Space complexity:
+O(1)
+
+"""
+
 class Solution:
     def countSubstrings(self, s: str) -> int:
         count = 0
