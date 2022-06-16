@@ -1,20 +1,20 @@
+"""
+Time complexity: O(N) where N is |nums|
+Space complexity: O(1) no extra space
+
+"""
+
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        n = len(nums)
-        
-        if n == 1:
+        if len(nums) == 1:
             return nums[0]
-        
-        # rob 0 to n - 2
         r1 = r2 = 0
-        for i in range(0, n - 1):
+        n = len(nums)
+        for i in range(n - 1):
             r = max(r1 + nums[i], r2)
             r1, r2 = r2, r
-        
-        # rob 1 to n - 1
-        t1 = t2 = 0
+        s1 = s2 = 0
         for i in range(1, n):
-            t = max(t1 + nums[i], t2)
-            t1, t2 = t2, t
-         
-        return max(r, t)
+            s = max(s1 + nums[i], s2)
+            s1, s2 = s2, s
+        return max(r, s)
