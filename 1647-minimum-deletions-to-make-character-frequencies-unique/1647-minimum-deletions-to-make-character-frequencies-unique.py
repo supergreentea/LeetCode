@@ -6,14 +6,16 @@ class Solution:
         
         frequencies.sort(reverse = True)
         
-        max_allowed_freq = len(s)
-        
         deletions_count = 0
         
+        max_allowed = math.inf
+        
         for freq in frequencies:
-            if freq > max_allowed_freq:
-                deletions_count += freq - max_allowed_freq
-                freq = max_allowed_freq
-            max_allowed_freq = max(0, freq - 1)
+            if freq > max_allowed:
+                deletions_count += freq - max_allowed
+                freq = max_allowed
+            max_allowed = max(0, freq - 1)
         
         return deletions_count
+        
+        
