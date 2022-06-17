@@ -4,7 +4,7 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
         n = len(nums)
-        red_end, blue_start = 0, n - 1
+        red_end, blue_start = 0, n
         
         for color in nums:
             if color == 0:
@@ -15,8 +15,8 @@ class Solution:
         for i in range(0, red_end):
             nums[i] = 0
         
-        for i in range(red_end, blue_start + 1):
+        for i in range(red_end, blue_start):
             nums[i] = 1
         
-        for i in range(blue_start + 1, n):
+        for i in range(blue_start, n):
             nums[i] = 2
