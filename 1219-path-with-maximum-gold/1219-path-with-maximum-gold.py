@@ -6,7 +6,7 @@ class Solution:
         
         def backtrack(row, col, gold):
             nonlocal max_gold
-            if row < 0 or row >= ROWS or col < 0 or col >= COLS or grid[row][col] == 0:
+            if row < 0 or row >= ROWS or col < 0 or col >= COLS or grid[row][col] == 0 or (row, col) in visited:
                 return
             
             gold += grid[row][col]
@@ -14,8 +14,6 @@ class Solution:
             visited.add((row, col))
             for row_offset, col_offset in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
                 new_row, new_col = row + row_offset, col + col_offset
-                if (new_row, new_col) in visited:
-                    continue
                 backtrack(new_row, new_col, gold)
             visited.remove((row, col))
         
