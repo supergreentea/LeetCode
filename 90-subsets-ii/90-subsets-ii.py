@@ -4,14 +4,16 @@ class Solution:
         output = []
         n = len(nums)
         
-        def backtrack(i, subset):
+        def backtrack(index, subset):
             output.append(subset.copy())
-            for j in range(i, n):
-                if j > i and nums[j] == nums[j - 1]:
+            for i in range(index, n):
+                if i > index and nums[i] == nums[i - 1]:
                     continue
-                subset.append(nums[j])
-                backtrack(j + 1, subset)
+                subset.append(nums[i])
+                backtrack(i + 1, subset)
                 subset.pop()
                 
         backtrack(0, [])
+        
         return output
+                
