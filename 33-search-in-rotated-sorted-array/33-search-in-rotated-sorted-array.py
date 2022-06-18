@@ -11,10 +11,10 @@ class Solution:
             
             # we are on part of array before pivot
             if nums[l] <= nums[m]:
-                if target < nums[l] or target > nums[m]:
-                    l = m + 1
-                else:
+                if target >= nums[l] and target <= nums[m]:
                     r = m - 1
+                else:
+                    l = m + 1
             else:
                 if target > nums[r] or target < nums[m]:
                     r = m - 1
