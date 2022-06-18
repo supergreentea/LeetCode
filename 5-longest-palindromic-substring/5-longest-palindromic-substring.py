@@ -2,17 +2,17 @@ class Solution:
     def longestPalindrome(self, s: str) -> str:
         start = end = 0
         
-        def expand(l, r):
+        def expand_around_center(i, j):
             nonlocal start
             nonlocal end
-            while l >= 0 and r < len(s) and s[l] == s[r]:
-                if r - l >= end - start:
-                    start, end = l, r
-                l -= 1
-                r += 1
-                
+            while i >= 0 and j < len(s) and s[i] == s[j]:
+                if end - start < j - i:
+                    start, end = i, j
+                i -= 1
+                j += 1
+        
         for i in range(len(s)):
-            expand(i, i)
-            expand(i, i + 1) # for even length palindromes
+            expand_around_center(i, i)
+            expand_around_center(i, i + 1)
         
         return s[start : end + 1]
