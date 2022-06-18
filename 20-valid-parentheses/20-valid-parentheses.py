@@ -1,6 +1,6 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        closeToOpen = { "}" : "{", "]" : "[", ")" : "(" }
+        closeToOpen = { ")" : "(", "}" : "{", "]" : "[" }
         stack = []
         for c in s:
             if c in closeToOpen:
@@ -11,4 +11,3 @@ class Solution:
             else:
                 stack.append(c)
         return not stack
-        
