@@ -2,13 +2,14 @@ class Solution:
     def search(self, nums: List[int], target: int) -> int:
         n = len(nums)
         l, r = 0, n - 1
+        
         while l <= r:
             m = (l + r) // 2
             
             if nums[m] == target:
                 return m
             
-            # we are in left sorted half
+            # we are on part of array before pivot
             if nums[l] <= nums[m]:
                 if target < nums[l] or target > nums[m]:
                     l = m + 1
