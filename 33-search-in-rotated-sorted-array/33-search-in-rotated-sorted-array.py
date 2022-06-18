@@ -9,15 +9,15 @@ class Solution:
             if nums[m] == target:
                 return m
             
-            # we are on part of array before pivot
+            # l to m is strictly ascending (before rotation index)
             if nums[l] <= nums[m]:
                 if target >= nums[l] and target <= nums[m]:
                     r = m - 1
                 else:
                     l = m + 1
-            else:
-                if target > nums[r] or target < nums[m]:
-                    r = m - 1
-                else:
+            else: # m to r is strictly ascending
+                if target >= nums[m] and target <= nums[r]:
                     l = m + 1
+                else:
+                    r = m - 1
         return -1
