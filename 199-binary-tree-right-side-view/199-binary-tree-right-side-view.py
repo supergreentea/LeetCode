@@ -12,9 +12,8 @@ class Solution:
                 return
             if len(output) <= level:
                 output.append(root.val)
-            output[level] = root.val
-            dfs(root.left, level + 1)
             dfs(root.right, level + 1)
+            dfs(root.left, level + 1)
         
         if not root:
             return []
