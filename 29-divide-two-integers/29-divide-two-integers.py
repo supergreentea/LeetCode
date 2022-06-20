@@ -16,9 +16,9 @@ class Solution:
             power_of_two = 1
             value = divisor
             
-            while value + value < dividend:
-                value += value
-                power_of_two += power_of_two
+            while value << 1 < dividend:
+                value <<= 1
+                power_of_two <<= 1
             
             quotient += power_of_two
             dividend -= value
