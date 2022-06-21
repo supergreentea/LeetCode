@@ -4,13 +4,11 @@ class Solution:
         output = []
         
         def backtrack(index, subset):
-            if index == n:
-                output.append(subset.copy())
-                return
-            subset.append(nums[index])
-            backtrack(index + 1, subset)
-            subset.pop()
-            backtrack(index + 1, subset)
+            output.append(subset.copy())
+            for i in range(index, n):
+                subset.append(nums[i])
+                backtrack(i + 1, subset)
+                subset.pop()
         
         backtrack(0, [])
         return output
