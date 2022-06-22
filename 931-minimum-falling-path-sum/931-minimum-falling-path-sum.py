@@ -2,10 +2,14 @@ class Solution:
     def minFallingPathSum(self, matrix: List[List[int]]) -> int:
         ROWS, COLS = len(matrix), len(matrix[0])
         
-        for row in range(1, ROWS):
-            matrix[row][0] += min(matrix[row-1][0], matrix[row-1][1])
-            for col in range(1, COLS - 1):
-                matrix[row][col] += min(matrix[row-1][col-1], matrix[row-1][col], matrix[row-1][col+1])
-            matrix[row][COLS-1] += min(matrix[row-1][COLS-1], matrix[row-1][COLS-2])
+        prev_row = matrix[0].copy()
         
-        return min(matrix[ROWS-1])
+        for row in range(1, ROWS):
+            cur_row = matrix[row].copy()
+            cur_row[0] += min(prev_row[0], prev_row[1])
+            for col in range(1, COLS - 1):
+                cur_row[col] += min(prev_row[col-1], prev_row[col], prev_row[col+1])
+            cur_row[COLS-1] += min(prev_row[COLS-1], prev_row[COLS-2])
+            prev_row = cur_row
+        
+        return min(prev_row)
