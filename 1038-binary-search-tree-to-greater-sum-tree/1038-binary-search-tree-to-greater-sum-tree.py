@@ -17,15 +17,13 @@ class Solution:
         
         inorder(root)
         
-        n = len(inorder_list)
-        sums = [0] * n
-        sums[-1] = inorder_list[-1].val
-        for i in range(n - 2, -1, -1):
-            sums[i] += inorder_list[i].val + sums[i + 1]
+        suffix_sums = [0] * len(inorder_list)
+        suffix_sums[-1] = inorder_list[-1].val
+        for i in range(len(suffix_sums) - 2, -1 , -1):
+            suffix_sums[i] = suffix_sums[i + 1] + inorder_list[i].val
         
-        for i in range(n):
-            inorder_list[i].val = sums[i]
+        for i in range(len(inorder_list)):
+            inorder_list[i].val = suffix_sums[i]
         
         return root
-            
-            
+        
