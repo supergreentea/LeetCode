@@ -1,56 +1,39 @@
-"""
-Time complexity: O(|S| + |T|) where |S| and |T| represent the lengths of strings S and T. 
-- We need to iterate through all elements of T to form the dictionary.
-- We need to iterate through all the elements of S at most 2 times, once with left pointer and once with right pointer.
-Space complexity: O(|S| +|T|)
-- The dictionary sizes scale with the number of unique elements in S and T, which are at most |S| and |T|
-"""
-
-"""
-Strategy:
-Sliding window algorithm:
-    - use two pointers, l and r (denoting the left side and right sides of the sliding window)
-    - move r until we know the window has all the characters in t. update our result indices (indices indicating start and end of substring answer)
-    - when window has all characters in t, move left pointer to shrink window until that condition is false, then expand window again by moving r 
-    - to find new substring fulfilling condition
-
-Maintain two dictionaries
-window_count : frequency of characters in current window
-t_count: frequency of characters in string t
-"""
-
-
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
-        if len(s) < len(t) or s == "":
+        if len(s) < len(t) or not s:
             return ""
         
-        window_count, t_count = defaultdict(int), defaultdict(int)
+        s_counter, t_counter = defaultdict(int), defaultdict(int)
         
         for c in t:
-            t_count[c] += 1
-
-        have, need = 0, len(t_count)
-        res_left, res_right = 0, len(s)
+            t_counter[c] += 1
         
-        l = 0
-        for r in range(len(s)):
-            window_count[s[r]] += 1
-            if s[r] in t_count:
-                if window_count[s[r]] == t_count[s[r]]:
+        # values chosen so that if valid window substring is found with smaller length, we can update these values
+        # if ans_right remains len(s), then we know no valid substring window was found
+        ans_left, ans_right = 0, len(s)
+        
+        have, need = 0, len(t_counter)
+        
+        window_left = 0
+        for window_right in range(len(s)):
+            cur_char = s[window_right]
+            if cur_char in t_counter:
+                s_counter[cur_char] += 1
+                if s_counter[cur_char] == t_counter[cur_char]:
                     have += 1
                     while have == need:
-                        if r - l < res_right - res_left:
-                            res_left, res_right = l, r
-                        window_count[s[l]] -= 1
-                        if s[l] in t_count and window_count[s[l]] == t_count[s[l]] - 1:
+                        if ans_right - ans_left > window_right - window_left:
+                            ans_left, ans_right = window_left, window_right
+                        front_char = s[window_left]
+                        s_counter[front_char] -= 1
+                        if front_char in t_counter and s_counter[front_char] == t_counter[front_char] - 1:
                             have -= 1
-                        l += 1
+                        window_left += 1
                         
-        if res_right == len(s):
+        if ans_right == len(s):
             return ""
         
-        return s[res_left : res_right + 1]
-        
+        return s[ans_left : ans_right + 1]
+                    
         
         
