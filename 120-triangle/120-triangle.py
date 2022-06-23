@@ -1,10 +1,7 @@
 class Solution:
     def minimumTotal(self, triangle: List[List[int]]) -> int:
         ROWS = len(triangle)
-        row_below = triangle[-1]
-        for r in reversed(range(ROWS - 1)):
-            cur_row = []
-            for c in range(r + 1):
-                cur_row.append(triangle[r][c] + min(row_below[c], row_below[c + 1]))
-            row_below = cur_row
-        return row_below[0]
+        for row in reversed(range(ROWS - 1)):
+            for col in range(row + 1):
+                triangle[row][col] += min(triangle[row + 1][col], triangle[row + 1][col + 1])
+        return triangle[0][0]
