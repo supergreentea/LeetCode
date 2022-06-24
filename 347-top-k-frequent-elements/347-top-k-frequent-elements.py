@@ -1,9 +1,30 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        counts = Counter(nums)
+        n = len(nums)
+        count = Counter(nums)
+        elements = list(count.keys())
         
-        key_value_pairs = list(counts.items())
+        def quickselect(l, r):
+            if l == r:
+                return elements[r]
+            pi = partition(l, r)
+            if k - 1 < pi:
+                return quickselect(l, pi - 1)
+            elif k - 1 > pi:
+                return quickselect(pi + 1, r)
+            else:
+                return elements[k - 1]
         
-        key_value_pairs.sort(key = lambda item : item[1], reverse = True)
+        def partition(l, r):
+            p = randint(l, r)
+            elements[r], elements[p] = elements[p], elements[r]
+            i = l
+            for j in range(l, r):
+                if count[elements[j]] > count[elements[r]]:
+                    elements[j], elements[i] = elements[i], elements[j]
+                    i += 1
+            elements[i], elements[r] = elements[r], elements[i]
+            return i
         
-        return [x[0] for x in key_value_pairs[:k]]
+        quickselect(0, len(elements) - 1)
+        return elements[:k]
