@@ -17,6 +17,7 @@ class Solution:
             else:
                 curr_sum += neededTime[index]
                 max_time = max(max_time, neededTime[index])
+                
         needed_time += curr_sum - max_time
         
         return needed_time
