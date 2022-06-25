@@ -6,8 +6,6 @@ class HitCounter:
 
     def hit(self, timestamp: int) -> None:
         self.queue.append(timestamp)
-        while self.queue and timestamp - self.queue[0] >= 300:
-            self.queue.popleft()
 
     def getHits(self, timestamp: int) -> int:
         while self.queue and timestamp - self.queue[0] >= 300:
