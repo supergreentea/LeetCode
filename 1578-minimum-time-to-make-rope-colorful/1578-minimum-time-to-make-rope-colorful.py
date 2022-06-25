@@ -10,15 +10,13 @@ class Solution:
         max_time = neededTime[0]
         curr_sum = max_time
         
-        index = 1
-        while index < len(neededTime):
+        for index in range(1, len(neededTime)):
             if colors[index] != colors[index - 1]:
                 needed_time += curr_sum - max_time
                 curr_sum = max_time = neededTime[index]
             else:
                 curr_sum += neededTime[index]
                 max_time = max(max_time, neededTime[index])
-            index += 1
         needed_time += curr_sum - max_time
         
         return needed_time
