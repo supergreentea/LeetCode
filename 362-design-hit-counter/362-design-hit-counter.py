@@ -1,15 +1,14 @@
 class HitCounter:
 
     def __init__(self):
-        self.total = 0
         self.hits = deque()
+        self.total = 0
 
     def hit(self, timestamp: int) -> None:
         if not self.hits or self.hits[-1][0] != timestamp:
-            self.hits.append((timestamp, 1))
+            self.hits.append([timestamp, 1])
         else:
-            timestamp, prev_count = self.hits.pop()
-            self.hits.append((timestamp, prev_count + 1))
+            self.hits[-1][1] += 1
         self.total += 1
 
     def getHits(self, timestamp: int) -> int:
