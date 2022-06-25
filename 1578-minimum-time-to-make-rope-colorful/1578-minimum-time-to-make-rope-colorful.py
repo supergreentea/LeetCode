@@ -4,9 +4,6 @@ class Solution:
             return 0
             
         needed_time = 0
-        
-    
-        prev_color = colors[0]
         max_time = neededTime[0]
         curr_sum = max_time
         
