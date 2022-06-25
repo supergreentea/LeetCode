@@ -1,20 +1,11 @@
 class Solution:
     def minimumDeletions(self, s: str) -> int:
-        counter = Counter(s)
-        a_left = b_left = 0
-        a_right, b_right = counter["a"], counter["b"]
-        
-        best = a_right
-        
+        b_left = 0
+        dp = [0]
         for c in s:
-            best = min(best, b_left + a_right)
-            if c == "a":
-                a_left += 1
-                a_right -= 1
-            else:
+            if c == 'b':
                 b_left += 1
-                b_right -= 1
-        
-        best = min(best, b_left + a_right)
-        
-        return best
+                dp.append(dp[-1])
+            else:
+                dp.append(min(b_left, dp[-1] + 1))
+        return dp[-1]
