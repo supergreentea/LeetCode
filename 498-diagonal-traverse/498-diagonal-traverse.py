@@ -1,22 +1,35 @@
 class Solution:
     def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
-        diagonals = defaultdict(list)
         ROWS, COLS = len(mat), len(mat[0])
+        output = []
         
-        diagonal_index = 0
-        for row in range(ROWS):
-            for col in range(COLS):
-                diagonals[row + col].append(mat[row][col])
+        def add_diagonal(start, end, increment):
+            row, col = start
+            while ((row, col) != end):
+                output.append(mat[row][col])
+                row -= increment
+                col += increment
+            output.append(mat[row][col])
         
-        ans = []
+        go_top_right = True
+        left = right = top = bottom = 0
         
-        for diagonal, elements in diagonals.items():
-            if diagonal % 2 == 1:
-                for element in elements:
-                    ans.append(element)
+        while len(output) < ROWS * COLS:
+            if go_top_right:
+                add_diagonal((bottom, left), (top, right), 1)
             else:
-                for i in range(len(elements) - 1, -1, -1):
-                    ans.append(elements[i])
+                add_diagonal((top, right), (bottom, left), -1)
+            
+            if right < COLS - 1:
+                right += 1
+            else:
+                top += 1
+            if bottom < ROWS - 1:
+                bottom += 1
+            else:
+                left += 1
+            
+            go_top_right = not go_top_right
                     
-        return ans
+        return output
                 
