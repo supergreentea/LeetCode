@@ -2,17 +2,17 @@ class Solution:
     def reverseWords(self, s: str) -> str:
         res = deque([])
         
-        word = ""
+        word = []
         for c in s:
             if c == " ":
                 if len(word) > 0:
-                    res.appendleft(word)
-                    word = ""
+                    res.appendleft("".join(word))
+                    word = []
                 else:
                     continue
             else:
-                word += c
+                word.append(c)
         if word:
-            res.appendleft(word)
+            res.appendleft("".join(word))
         
         return " ".join(res)
