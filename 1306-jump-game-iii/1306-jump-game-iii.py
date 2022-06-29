@@ -1,14 +1,18 @@
 class Solution:
     def canReach(self, arr: List[int], start: int) -> bool:
         queue = deque([start])
-        visited = set()
+        visited = set([start])
         while queue:
             index = queue.popleft()
-            visited.add(index)
             if arr[index] == 0:
                 return True
-            if index - arr[index] >= 0 and index - arr[index] not in visited:
-                queue.append(index - arr[index])
-            if index + arr[index] < len(arr) and index + arr[index] not in visited:
-                queue.append(index + arr[index])
+            left = index - arr[index]
+            right = index + arr[index]
+            if left >= 0 and not left in visited:
+                queue.append(left)
+                visited.add(left)
+            if right < len(arr) and not right in visited:
+                queue.append(right)
+                visited.add(right)
+        
         return False
