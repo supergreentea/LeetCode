@@ -18,3 +18,4 @@ class Solution:
                 return cur.val
             cur = cur.right
             
+                
