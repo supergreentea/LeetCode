@@ -1,7 +1,7 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        rob1, rob2 = nums[len(nums) - 1], 0
-        for i in range(len(nums) - 2, -1, -1):
-            t = max(nums[i] + rob2, rob1)
-            rob1, rob2 = t, rob1
-        return rob1
+        r1 = r2 = 0
+        for r in nums:
+            max_profit = max(r1 + r, r2)
+            r1, r2 = r2, max_profit
+        return r2
