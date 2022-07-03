@@ -13,7 +13,7 @@ class Solution:
             if l > queue[0]:
                 queue.popleft()
             
-            if (r + 1) >= k:
+            if r >= k - 1:
                 output.append(nums[queue[0]])
                 l += 1
             r += 1
