@@ -13,7 +13,7 @@ class Solution:
             if l > queue[0]:
                 queue.popleft()
             
-            if r >= k - 1:
+            if r >= k - 1: # window is at least size k
                 output.append(nums[queue[0]])
                 l += 1
             r += 1
