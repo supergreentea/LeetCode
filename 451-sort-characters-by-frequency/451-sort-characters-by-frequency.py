@@ -1,6 +1,9 @@
 class Solution:
     def frequencySort(self, s: str) -> str:
-        buckets = [[] for _ in range(5 * 10 ** 5 + 1)]
+        # O(n) space and O(n) time for construction of counter
+        counter = Counter(s)
+        max_freq = max(counter.values())
+        buckets = [[] for _ in range(max_freq + 1)]
         
         # O(n) space and O(n) time for construction of counter
         counter = Counter(s)
