@@ -9,8 +9,6 @@ class Node:
 """
 
 class Solution:
-    
-        
     def connect(self, root: 'Node') -> 'Node':
         
         def process_child(child):
@@ -31,12 +29,9 @@ class Solution:
         while leftmost:
             prev, curr = None, leftmost
             leftmost = None
-            
             while curr:
                 process_child(curr.left)
                 process_child(curr.right)
                 curr = curr.next
-        
         return root
-        
         
