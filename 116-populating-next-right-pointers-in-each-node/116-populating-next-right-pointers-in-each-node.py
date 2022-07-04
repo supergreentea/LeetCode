@@ -14,15 +14,20 @@ class Solution:
             return
         queue = deque([root])
         while queue:
-            level = []
-            for _ in range(len(queue)):
-                node = queue.popleft()
-                level.append(node)
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-            for i in range(len(level) - 1):
-                level[i].next = level[i+ 1]
-            level[-1].next = None
+            n = len(queue)
+            node = queue.popleft()
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+            for _ in range(n - 1):
+                next_node = queue.popleft()
+                if next_node.left:
+                    queue.append(next_node.left)
+                if next_node.right:
+                    queue.append(next_node.right)
+                node.next = next_node
+                node = next_node
+            node.next = None
+            
         return root
