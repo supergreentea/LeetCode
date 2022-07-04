@@ -10,20 +10,22 @@ class Node:
 
 class Solution:
     
-    def process_child(self, child, prev, leftmost):
-        if child:
-            if prev:
-                prev.next = child
-            else:
-                leftmost = child
-            prev = child
-        return prev, leftmost
-        
         
     def connect(self, root: 'Node') -> 'Node':
+        
+        def process_child(child):
+            nonlocal prev
+            nonlocal leftmost
+            if child:
+                if prev:
+                    prev.next = child
+                else:
+                    leftmost = child
+                prev = child
+        
         if not root:
             return root
-    
+        
         leftmost = root
         
         while leftmost:
@@ -31,9 +33,10 @@ class Solution:
             leftmost = None
             
             while curr:
-                prev, leftmost = self.process_child(curr.left, prev, leftmost)
-                prev, leftmost = self.process_child(curr.right, prev, leftmost)
-                
+                process_child(curr.left)
+                process_child(curr.right)
                 curr = curr.next
         
         return root
+        
+        
