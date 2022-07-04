@@ -11,7 +11,7 @@ class Node:
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
         
-        def process_child(child):
+        def process(child):
             nonlocal prev
             nonlocal leftmost
             if child:
@@ -25,13 +25,11 @@ class Solution:
             return root
         
         leftmost = root
-        
         while leftmost:
             prev, curr = None, leftmost
             leftmost = None
             while curr:
-                process_child(curr.left)
-                process_child(curr.right)
+                process(curr.left)
+                process(curr.right)
                 curr = curr.next
         return root
-        
