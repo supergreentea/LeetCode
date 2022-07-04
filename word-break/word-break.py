@@ -10,9 +10,6 @@ class Solution:
                 if word_start != -1:
                     left_half = s[:word_start]
                     right_half = s[word_start + len(word):]
-                    print("word: " + word)
-                    print("left :" + left_half)
-                    print("right :" + right_half)
                     if word_break(left_half) and word_break(right_half):
                         return True
             return False
