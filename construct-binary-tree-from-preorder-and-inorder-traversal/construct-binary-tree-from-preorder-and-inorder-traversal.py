@@ -14,7 +14,7 @@ class Solution:
         root = TreeNode(preorder[0])
         middle = inorder.index(preorder[0])
         
-        # elements in left subtree = middle - 1
+        # elements in left subtree = middle
         # preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]
         root.left = self.buildTree(preorder[1 : middle + 1], inorder[:middle])
         root.right = self.buildTree(preorder[middle + 1:], inorder[middle + 1:])
