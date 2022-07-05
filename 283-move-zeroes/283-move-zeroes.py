@@ -4,14 +4,11 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
         slow = 0
-        for num in nums:
+        for fast, num in enumerate(nums):
             if num != 0:
-                nums[slow] = num
+                nums[slow], nums[fast] = nums[fast], nums[slow]
                 slow += 1
-        
-        while slow < len(nums):
-            nums[slow] = 0
-            slow += 1
+                
         
         
             
