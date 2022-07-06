@@ -1,34 +1,31 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        # build adjacency list representation
-        prereqs = defaultdict(list)
+        output = []
         
-        for crs, pre in prerequisites:
-            prereqs[crs].append(pre)
+        graph = defaultdict(list)
         
-        on_path, explored = set(), set()
+        for course, prereq in prerequisites:
+            graph[course].append(prereq)
         
-        topological_ordering = []
+        on_stack, visited = set(), set()
         
         def dfs(crs):
-            if crs in on_path:
+            if crs in on_stack:
                 return False
-            if crs in explored:
+            if crs in visited:
                 return True
             
-            on_path.add(crs)
-            for pre in prereqs[crs]:
+            on_stack.add(crs)
+            for pre in graph[crs]:
                 if not dfs(pre):
                     return False
-                
-            on_path.remove(crs)
-            explored.add(crs)
-            topological_ordering.append(crs)
+            on_stack.remove(crs)
+            visited.add(crs)
+            output.append(crs)
             return True
         
         for crs in range(numCourses):
             if not dfs(crs):
                 return []
         
-        return topological_ordering
-        
+        return output
