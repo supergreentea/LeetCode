@@ -6,7 +6,7 @@ class TrieNode:
 class Trie:
 
     def __init__(self):
-        self. root = TrieNode()
+        self.root = TrieNode()
         
 
     def insert(self, word: str) -> None:
@@ -24,6 +24,7 @@ class Trie:
                 return False
             cur = cur.children[c]
         return cur.is_word
+        
 
     def startsWith(self, prefix: str) -> bool:
         cur = self.root
