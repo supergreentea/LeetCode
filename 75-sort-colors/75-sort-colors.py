@@ -3,17 +3,17 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        p0 = 0
-        cur = 0
-        p2 = len(nums) - 1
+        next_zero = cur = 0
+        next_two = len(nums) - 1
         
-        while cur <= p2:
+        while cur <= next_two:
             if nums[cur] == 0:
-                nums[p0], nums[cur] = nums[cur], nums[p0]
-                p0 += 1
+                nums[cur], nums[next_zero] = nums[next_zero], nums[cur]
                 cur += 1
+                next_zero += 1
             elif nums[cur] == 2:
-                nums[cur], nums[p2] = nums[p2], nums[cur]
-                p2 -= 1
+                nums[cur], nums[next_two] = nums[next_two], nums[cur]
+                next_two -= 1
             else:
                 cur += 1
+                
