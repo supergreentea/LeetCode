@@ -2,21 +2,19 @@ class Solution:
     def partition(self, s: str) -> List[List[str]]:
         
         output = []
-        memo = {}
         
-        def is_palindrome(l, r):
-            if (l, r) in memo:
-                return memo[(l, r)]
-            while l < r:
-                if s[l] != s[r]:
-                    memo[(l, r)] = False
+        # O(n) time complexity, O(n^2) space 
+        @cache
+        def is_palindrome(start, end):
+            while start < end:
+                if s[start] != s[end]:
                     return False
-                l, r = l + 1, r - 1
-            memo[(l, r)] = True
+                start += 1
+                end -= 1
             return True
         
         def backtrack(start = 0, partition = []):
-            if start >= len(s):
+            if start == len(s):
                 output.append(partition.copy())
                 return
             
@@ -28,4 +26,3 @@ class Solution:
         
         backtrack()
         return output
-                
