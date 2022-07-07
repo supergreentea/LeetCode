@@ -2,13 +2,17 @@ class Solution:
     def partition(self, s: str) -> List[List[str]]:
         
         output = []
+        memo = {}
         
-        @cache
         def is_palindrome(l, r):
+            if (l, r) in memo:
+                return memo[(l, r)]
             while l < r:
                 if s[l] != s[r]:
+                    memo[(l, r)] = False
                     return False
                 l, r = l + 1, r - 1
+            memo[(l, r)] = True
             return True
         
         def backtrack(start = 0, partition = []):
