@@ -1,7 +1,11 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        r1 = r2 = 0
-        for r in nums:
-            max_profit = max(r1 + r, r2)
-            r1, r2 = r2, max_profit
-        return r2
+        
+        @cache
+        def max_profit(index):
+            if index >= len(nums):
+                return 0
+            if index == len(nums) - 1:
+                return nums[index]
+            return max(max_profit(index + 2) + nums[index], max_profit(index + 1))
+        return max_profit(0)
