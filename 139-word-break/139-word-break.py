@@ -1,17 +1,14 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         
-        @cache
-        def word_break(s):
-            if s == "":
-                return True
-            for word in wordDict:
-                word_start = s.find(word)
-                if word_start != -1:
-                    left_half = s[:word_start]
-                    right_half = s[word_start + len(word):]
-                    if word_break(left_half) and word_break(right_half):
-                        return True
-            return False
+        dp = [False] * (len(s) + 1)
+        dp[len(s)] = True
         
-        return word_break(s)
+        for i in range(len(s) - 1, -1, -1):
+            for word in wordDict:
+                if i + len(word) <= len(s) and s[i : i + len(word)] == word:
+                    dp[i] = dp[i + len(word)]
+                if dp[i]:
+                    break
+        
+        return dp[0]
