@@ -1,22 +1,28 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-        combinations = { 1 : set(["()"]) }
         
-        if n == 1:
-            return combinations[1]
+        output = []
         
-        for i in range(2, n + 1):
-            combinations[i] = set()
-            for j in range(1, i // 2 + 1):
-                first_set = combinations[j]
-                second_set = combinations[i - j]
+        def valid(parenthesis):
+            stack = []
+            for char in parenthesis:
+                if char == ')':
+                    if stack and stack[-1] == '(':
+                        stack.pop()
+                    else:
+                        return False
+                else:
+                    stack.append(char)
+            return not stack
                 
-                for first_combination in first_set:
-                    for insert_index in range(len(first_combination) + 1):
-                        for second_combination in second_set:
-                            new_combination = first_combination[:insert_index] + second_combination + first_combination[insert_index:]
-                            combinations[i].add(new_combination)
-        for c in combinations.values():
-            print(len(c))
-                        
-        return combinations[n]
+        
+        def backtrack(length = 0, parenthesis = ""):
+            if length == 2 * n:
+                if valid(parenthesis):
+                    output.append(parenthesis)
+                return
+            backtrack(length + 1, parenthesis + "(")
+            backtrack(length + 1, parenthesis + ")")
+        
+        backtrack()
+        return output
