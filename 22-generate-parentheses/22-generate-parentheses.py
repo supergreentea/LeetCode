@@ -1,28 +1,17 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-        
-        output = []
-        
-        def valid(parenthesis):
-            stack = []
-            for char in parenthesis:
-                if char == ')':
-                    if stack and stack[-1] == '(':
-                        stack.pop()
-                    else:
-                        return False
-                else:
-                    stack.append(char)
-            return not stack
-                
-        
-        def backtrack(length = 0, parenthesis = ""):
-            if length == 2 * n:
-                if valid(parenthesis):
-                    output.append(parenthesis)
+        ans = []
+        def backtrack(S = [], left = 0, right = 0):
+            if len(S) == 2 * n:
+                ans.append("".join(S))
                 return
-            backtrack(length + 1, parenthesis + "(")
-            backtrack(length + 1, parenthesis + ")")
-        
+            if left < n:
+                S.append("(")
+                backtrack(S, left+1, right)
+                S.pop()
+            if right < left:
+                S.append(")")
+                backtrack(S, left, right+1)
+                S.pop()
         backtrack()
-        return output
+        return ans
