@@ -1,11 +1,15 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        groupings = defaultdict(list)
         
-        anagrams = defaultdict(list)
+        def get_key(word):
+            count = [0] * 26
+            for c in word:
+                count[ord(c) - ord('a')] += 1
+            return tuple(count)
         
-        for s in strs:
-            char_freq = [0] * 26
-            for c in s:
-                char_freq[ord(c) - ord('a')] += 1
-            anagrams[tuple(char_freq)].append(s)
-        return anagrams.values()
+        for word in strs:
+            key = get_key(word)
+            groupings[key].append(word)
+        
+        return groupings.values()
