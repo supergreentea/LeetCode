@@ -1,23 +1,27 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
+        ROWS, COLS = len(grid), len(grid[0])
+        visited = set()
+        
+        islands = 0
         
         def bfs(row, col):
-            visited.add((row, col))
-            directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+            nonlocal islands
+            islands += 1
             queue = deque([(row, col)])
+            visited.add((row, col))
             while queue:
-                r, c = queue.popleft()
-                for d_r, d_c in directions:
-                    n_r, n_c = r + d_r, c + d_c
-                    if 0 <= n_r < len(grid) and 0 <= n_c < len(grid[0]) and grid[n_r][n_c] == '1' and (n_r, n_c) not in visited:
-                        visited.add((n_r, n_c))
-                        queue.append((n_r, n_c))
+                cur_row, cur_col = queue.popleft()
+                for row_offset, col_offset in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+                    next_row, next_col = cur_row + row_offset, cur_col + col_offset
+                    if next_row >= 0 and next_row < ROWS and next_col >= 0 and next_col < COLS and (next_row, next_col) not in visited and grid[next_row][next_col] == '1':
+                        visited.add((next_row, next_col))
+                        queue.append((next_row, next_col))
         
-        count = 0
-        visited = set()
-        for r in range(len(grid)):
-            for c in range(len(grid[0])):
-                if grid[r][c] == '1' and (r, c) not in visited:
-                    bfs(r, c)
-                    count += 1
-        return count
+        for row in range(ROWS):
+            for col in range(COLS):
+                if (row, col) not in visited and grid[row][col] == '1':
+                    bfs(row, col)
+        
+        return islands
+                
