@@ -8,18 +8,18 @@ class Node:
 
 class Solution:
     def cloneGraph(self, node: 'Node') -> 'Node':
-        oldToNew = {}
+        original_to_copy = {}
         
         def clone(node):
             if not node:
-                return None
+                return 
             
-            if node in oldToNew:
-                return oldToNew[node]
+            if node in original_to_copy:
+                return original_to_copy[node]
             
             copy = Node(node.val)
             
-            oldToNew[node] = copy
+            original_to_copy[node] = copy
             
             copy.neighbors = [clone(neighbor) for neighbor in node.neighbors]
             
