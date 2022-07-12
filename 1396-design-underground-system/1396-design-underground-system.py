@@ -14,10 +14,8 @@ class UndergroundSystem:
         
         startStation, boarded = self.checked_in[id]
         
-        if (startStation, endStation) not in self.stations:
-            self.stations[(startStation, endStation)] = (0, 0)
         
-        total_time, count = self.stations[(startStation, endStation)]
+        total_time, count = self.stations.get((startStation, endStation), (0, 0))
         
         self.stations[(startStation, endStation)] = (total_time + arrival - boarded, count + 1)
 
