@@ -1,22 +1,33 @@
 class Solution:
     def canChange(self, start: str, target: str) -> bool:
-        if start.replace('_', '') != target.replace('_', ''):
+        start_pieces, target_pieces = [], []
+        blank_count_diff = 0
+        for index, char in enumerate(start):
+            if char != '_':
+                start_pieces.append((char, index))
+            else:
+                blank_count_diff += 1
+        for index, char in enumerate(target):
+            if char != '_':
+                target_pieces.append((char, index))
+            else:
+                blank_count_diff -=1
+        
+        if blank_count_diff != 0 or len(start_pieces) != len(target_pieces):
             return False
         
-        i = j = 0
-        n = len(start)
-        
-        while i < n and j < n:
-            while i < n and start[i] == '_':
-                i += 1
-            while j < n and target[j] == '_':
-                j += 1
-            if (i < n) != (j < n):
+        for i in range(len(start_pieces)):
+            start_char, start_index = start_pieces[i]
+            target_char, target_index = target_pieces[i]
+            if start_char == target_char:
+                if start_char == 'L':
+                    if start_index < target_index:
+                        return False
+                else:
+                    if start_index > target_index:
+                        return False
+            else:
                 return False
-            elif i < n and j < n:
-                if start[i] != target[j] or start[i] == 'L' and i < j or start[i] == 'R' and i > j:
-                    return False
-                i += 1
-                j += 1
-                
+        
         return True
+        
