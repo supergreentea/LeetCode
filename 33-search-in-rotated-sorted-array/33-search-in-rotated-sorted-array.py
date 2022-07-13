@@ -6,7 +6,7 @@ class Solution:
             m = (l + r) // 2
             if nums[m] == target:
                 return m
-            elif nums[m] >= nums[l]:
+            if nums[m] >= nums[l]:
                 if target >= nums[l] and target < nums[m]:
                     r = m - 1
                 else:
