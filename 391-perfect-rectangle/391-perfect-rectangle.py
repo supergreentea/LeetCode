@@ -8,7 +8,6 @@ class Solution:
         
         area = 0
         
-        
         for x_start, y_start, x_end, y_end in rectangles:
             
             # Update min and max x and y values.
@@ -37,5 +36,3 @@ class Solution:
                     return False
 
         return True
-        
-        
