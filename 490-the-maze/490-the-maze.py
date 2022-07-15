@@ -9,9 +9,7 @@ class Solution:
                 return False
             if [start_row, start_col] == destination:
                 return True
-            
             visited.add((start_row, start_col))
-            
             for d_row, d_col in directions:
                 row, col = start_row, start_col    
                 while row >= 0 and row < ROWS and col >= 0 and col < COLS and maze[row][col] != 1:
@@ -19,7 +17,6 @@ class Solution:
                     col += d_col
                 if dfs(row - d_row, col - d_col):
                     return True
-            
             return False
         
         return dfs()
