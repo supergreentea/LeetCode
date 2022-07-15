@@ -11,6 +11,5 @@ class Solution:
             else:
                 while current % 10 == 9 or current == n:
                     current //= 10
-                
                 current += 1
         return res
