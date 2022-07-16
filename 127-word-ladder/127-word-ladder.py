@@ -14,20 +14,30 @@ class Solution:
                 pattern = word[:i] + "*" + word[i+1:]
                 pattern_to_words[pattern].append(word)
                 word_to_patterns[word].append(pattern)
-        print(word_to_patterns)
         
-        visited = set([beginWord])
-        queue = deque([beginWord])
-        level = 0
-        while queue:
-            level += 1
+        visited_from_start = { beginWord : 1 }
+        visited_from_end = { endWord : 1 }
+        
+        start_queue = deque([(beginWord, 1)])
+        end_queue = deque([(endWord, 1)])
+        
+        def bfs(queue, visited, other_visited):
             for _ in range(len(queue)):
-                word = queue.popleft()
-                if word == endWord:
-                    return level
+                word, length = queue.popleft()
+                if word in other_visited:
+                    return length + other_visited[word] - 1
                 for pattern in word_to_patterns[word]:
-                    for word in pattern_to_words[pattern]:
-                        if word not in visited:
-                            visited.add(word)
-                            queue.append(word)
+                    for neighbor in pattern_to_words[pattern]:
+                        if neighbor not in visited:
+                            visited[neighbor] = length + 1
+                            queue.append((neighbor, length + 1))
+            return 0
+            
+        while start_queue and end_queue:
+            bfs_from_start = bfs(start_queue, visited_from_start, visited_from_end)
+            if bfs_from_start:
+                return bfs_from_start
+            bfs_from_end = bfs(end_queue, visited_from_end, visited_from_start)
+            if bfs_from_end:
+                return bfs_from_end
         return 0
