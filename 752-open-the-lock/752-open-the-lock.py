@@ -35,7 +35,7 @@ class Solution:
                         queue.append((next_state, turns + 1))
                 return 0
         
-        while start_queue and end_queue:
+        while start_queue or end_queue:
             turn_start = bfs(start_queue, start_visited, end_visited)
             if turn_start:
                 return turn_start
