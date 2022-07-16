@@ -34,10 +34,12 @@ class Solution:
             return 0
             
         while start_queue and end_queue:
-            bfs_from_start = bfs(start_queue, visited_from_start, visited_from_end)
-            if bfs_from_start:
-                return bfs_from_start
-            bfs_from_end = bfs(end_queue, visited_from_end, visited_from_start)
-            if bfs_from_end:
-                return bfs_from_end
+            if len(start_queue) < len(end_queue):
+                sequence_found = bfs(start_queue, visited_from_start, visited_from_end)
+                if sequence_found:
+                    return sequence_found
+            else:
+                sequence_found = bfs(end_queue, visited_from_end, visited_from_start)
+                if sequence_found:
+                    return sequence_found
         return 0
