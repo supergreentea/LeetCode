@@ -25,6 +25,7 @@ class Solution:
                         nxt.prev = child_tail
                     
                     cur.child = None
+                # move to original next node if it exists, otherwise point to node below
                 cur = nxt if nxt else cur.next
             return tail
         
