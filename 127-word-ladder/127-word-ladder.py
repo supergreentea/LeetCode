@@ -32,14 +32,13 @@ class Solution:
                             visited[neighbor] = length + 1
                             queue.append((neighbor, length + 1))
             return 0
-            
+        
+        ans = None
         while start_queue and end_queue:
             if len(start_queue) < len(end_queue):
-                sequence_found = bfs(start_queue, visited_from_start, visited_from_end)
-                if sequence_found:
-                    return sequence_found
+                ans = bfs(start_queue, visited_from_start, visited_from_end)
             else:
-                sequence_found = bfs(end_queue, visited_from_end, visited_from_start)
-                if sequence_found:
-                    return sequence_found
+                ans = bfs(end_queue, visited_from_end, visited_from_start)
+            if ans:
+                return ans
         return 0
