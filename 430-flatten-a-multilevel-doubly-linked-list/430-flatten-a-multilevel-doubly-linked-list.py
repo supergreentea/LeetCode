@@ -1,34 +1,3 @@
-"""
-# Definition for a Node.
-class Node:
-    def __init__(self, val, prev, next, child):
-        self.val = val
-        self.prev = prev
-        self.next = next
-        self.child = child
-"""
-
-"""
-For nodes in list, if node has child, then flatten the child first.
-
-Then node.next = flatten(child)
-and the child's tail should point to original node.next.
-
-Get the tail of the flattened child node.
-
-Have it point to the next node.
-
-The problem is we need access to flattened list's tail to point it
-to the next node.
-
-Can we keep a pointer to the tail as we flatten the list.
-
-Case case for recursion: a child with no children.
-
-
-
-"""
-
 class Solution:
     def flatten(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if not head:
@@ -61,7 +30,3 @@ class Solution:
         
         get_flattened_tail(head)
         return head
-                
-        
-        
-        
