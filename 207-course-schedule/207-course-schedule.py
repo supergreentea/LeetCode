@@ -10,7 +10,7 @@ class Solution:
             for pre in graph[crs]:
                 inDegree[pre] += 1
         
-        degZeroNodes = []
+        degZeroNodes = deque()
         for crs in range(numCourses):
             if inDegree[crs] == 0:
                 degZeroNodes.append(crs)
@@ -18,7 +18,7 @@ class Solution:
         topOrdering = []
         
         while degZeroNodes:
-            node = degZeroNodes.pop()
+            node = degZeroNodes.popleft()
             topOrdering.append(node)
             for nbr in graph[node]:
                 inDegree[nbr] -= 1
