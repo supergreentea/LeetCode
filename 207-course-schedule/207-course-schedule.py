@@ -1,30 +1,32 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        graph = defaultdict(list)
-        # build graph
+        G = defaultdict(list)
+        indegree = defaultdict(int)
+        
         for crs, pre in prerequisites:
-            graph[crs].append(pre)
+            G[pre].append(crs)
+            indegree[crs] += 1
         
-        # build indegree list
-        in_degree = [0 for crs in range(numCourses)]
-        for crs in graph:
-            for pre in graph[crs]:
-                in_degree[pre] += 1
+        print(indegree)
+        print(G)
         
-        zero_indegree_courses = []
+        zero_degree = []
         for crs in range(numCourses):
-            if in_degree[crs] == 0:
-                zero_indegree_courses.append(crs)
+            if indegree[crs] == 0:
+                zero_degree.append(crs)
+        print(indegree[3])
         
-        topological_ordering = []
+        print(zero_degree)
         
-        while zero_indegree_courses:
-            crs = zero_indegree_courses.pop()
-            topological_ordering.append(crs)
-            for pre in graph[crs]:
-                in_degree[pre] -= 1
-                if in_degree[pre] == 0:
-                    zero_indegree_courses.append(pre)
+        top_ordering = []
+        while zero_degree:
+            pre = zero_degree.pop()
+            top_ordering.append(pre)
+            for crs in G[pre]:
+                indegree[crs] -= 1
+                if indegree[crs] == 0:
+                    zero_degree.append(crs)
+        print(indegree)
+        print(top_ordering)
         
-        return len(topological_ordering) == numCourses
-            
+        return len(top_ordering) == numCourses
