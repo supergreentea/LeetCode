@@ -1,33 +1,30 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         graph = defaultdict(list)
+        # build graph
         for crs, pre in prerequisites:
             graph[crs].append(pre)
         
-        inDegree = [0 for crs in range(numCourses)]
-        
-        for crs in range(numCourses):
+        # build indegree list
+        in_degree = [0 for crs in range(numCourses)]
+        for crs in graph:
             for pre in graph[crs]:
-                inDegree[pre] += 1
+                in_degree[pre] += 1
         
-        degZeroNodes = deque()
+        zero_indegree_courses = []
         for crs in range(numCourses):
-            if inDegree[crs] == 0:
-                degZeroNodes.append(crs)
+            if in_degree[crs] == 0:
+                zero_indegree_courses.append(crs)
         
-        topOrdering = []
+        topological_ordering = []
         
-        while degZeroNodes:
-            node = degZeroNodes.popleft()
-            topOrdering.append(node)
-            for nbr in graph[node]:
-                inDegree[nbr] -= 1
-                if inDegree[nbr] == 0:
-                    degZeroNodes.append(nbr)
+        while zero_indegree_courses:
+            crs = zero_indegree_courses.pop()
+            topological_ordering.append(crs)
+            for pre in graph[crs]:
+                in_degree[pre] -= 1
+                if in_degree[pre] == 0:
+                    zero_indegree_courses.append(pre)
         
-        if len(topOrdering) < numCourses:
-            return False
-        
-        return True
-        
+        return len(topological_ordering) == numCourses
             
