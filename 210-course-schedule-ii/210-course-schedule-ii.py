@@ -1,31 +1,35 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
-        output = []
         
-        graph = defaultdict(list)
+        G = defaultdict(list)
+        for crs, pre in prerequisites:
+            G[pre].append(crs)
         
-        for course, prereq in prerequisites:
-            graph[course].append(prereq)
+        print(G)
         
-        on_stack, visited = set(), set()
+        indegree = [0 for crs in range(numCourses)]
+        for crs in G:
+            for pre in G[crs]:
+                indegree[pre] += 1
         
-        def dfs(crs):
-            if crs in on_stack:
-                return False
-            if crs in visited:
-                return True
-            
-            on_stack.add(crs)
-            for pre in graph[crs]:
-                if not dfs(pre):
-                    return False
-            on_stack.remove(crs)
-            visited.add(crs)
-            output.append(crs)
-            return True
+        print(indegree)
+        
+        zero_degrees = []
         
         for crs in range(numCourses):
-            if not dfs(crs):
-                return []
+            if indegree[crs] == 0:
+                zero_degrees.append(crs)
+                
+        print(zero_degrees)
         
-        return output
+        top_ordering = []
+        
+        while zero_degrees:
+            crs = zero_degrees.pop()
+            top_ordering.append(crs)
+            for pre in G[crs]:
+                indegree[pre] -= 1
+                if indegree[pre] == 0:
+                    zero_degrees.append(pre)
+        
+        return top_ordering if len(top_ordering) == numCourses else []
