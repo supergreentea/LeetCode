@@ -2,26 +2,17 @@ class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         
         G = defaultdict(list)
+        indegree = defaultdict(int)
         for crs, pre in prerequisites:
             G[pre].append(crs)
-        
-        print(G)
-        
-        indegree = [0 for crs in range(numCourses)]
-        for crs in G:
-            for pre in G[crs]:
-                indegree[pre] += 1
-        
-        print(indegree)
+            indegree[crs] += 1
         
         zero_degrees = []
         
         for crs in range(numCourses):
             if indegree[crs] == 0:
                 zero_degrees.append(crs)
-                
-        print(zero_degrees)
-        
+            
         top_ordering = []
         
         while zero_degrees:
