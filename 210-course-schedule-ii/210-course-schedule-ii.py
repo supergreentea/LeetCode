@@ -3,24 +3,26 @@ class Solution:
         
         G = defaultdict(list)
         indegree = defaultdict(int)
+        
         for crs, pre in prerequisites:
             G[pre].append(crs)
             indegree[crs] += 1
         
-        zero_degrees = []
-        
+        prereqs_fulfilled = []
         for crs in range(numCourses):
             if indegree[crs] == 0:
-                zero_degrees.append(crs)
-            
-        top_ordering = []
+                prereqs_fulfilled.append(crs)
         
-        while zero_degrees:
-            crs = zero_degrees.pop()
-            top_ordering.append(crs)
-            for pre in G[crs]:
-                indegree[pre] -= 1
-                if indegree[pre] == 0:
-                    zero_degrees.append(pre)
+        topological_ordering = []
         
-        return top_ordering if len(top_ordering) == numCourses else []
+        while prereqs_fulfilled:
+            pre = prereqs_fulfilled.pop()
+            topological_ordering.append(pre)
+            for crs in G[pre]:
+                indegree[crs] -= 1
+                if indegree[crs] == 0:
+                    prereqs_fulfilled.append(crs)
+        
+        return topological_ordering if len(topological_ordering) == numCourses else []
+        
+        
