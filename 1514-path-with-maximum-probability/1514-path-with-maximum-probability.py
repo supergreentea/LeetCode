@@ -1,23 +1,23 @@
 class Solution:
     def maxProbability(self, n: int, edges: List[List[int]], succProb: List[float], start: int, end: int) -> float:
-        G = defaultdict(list)
-        for i in range(len(edges)):
-            a, b = edges[i]
-            prob = succProb[i]
-            G[a].append((b, prob))
-            G[b].append((a, prob))
+        graph = defaultdict(list)
+        for i, (a, b) in enumerate(edges):
+            graph[a].append((b, succProb[i]))
+            graph[b].append((a, succProb[i]))
         
-        max_probability = [0 for node in range(n)]
+        max_probability = defaultdict(int)
         max_probability[start] = 1
         
         PQ = []
         heappush(PQ, (-1, start))
+            
         while PQ:
-            pro, node = heappop(PQ)
-            pro *= -1
-            if pro < max_probability[node]: continue
-            for nbr, w in G[node]:
-                if pro * w > max_probability[nbr]:
-                    max_probability[nbr] = pro * w
-                    heappush(PQ, (-pro * w, nbr))
+            prob, node = heappop(PQ)
+            prob *= -1
+            if prob < max_probability[node]: # we've already found a better path
+                continue
+            for neighbor, weight in graph[node]:
+                if prob * weight > max_probability[neighbor]:
+                    max_probability[neighbor] =  prob * weight
+                    heappush(PQ, (-prob * weight, neighbor))
         return max_probability[end]
