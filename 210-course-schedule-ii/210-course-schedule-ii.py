@@ -8,21 +8,19 @@ class Solution:
             G[pre].append(crs)
             indegree[crs] += 1
         
-        prereqs_fulfilled = []
+        zero_indegree = []
         for crs in range(numCourses):
             if indegree[crs] == 0:
-                prereqs_fulfilled.append(crs)
+                zero_indegree.append(crs)
         
-        topological_ordering = []
+        top_ordering = []
         
-        while prereqs_fulfilled:
-            pre = prereqs_fulfilled.pop()
-            topological_ordering.append(pre)
+        while zero_indegree:
+            pre = zero_indegree.pop()
+            top_ordering.append(pre)
             for crs in G[pre]:
                 indegree[crs] -= 1
                 if indegree[crs] == 0:
-                    prereqs_fulfilled.append(crs)
+                    zero_indegree.append(crs)
         
-        return topological_ordering if len(topological_ordering) == numCourses else []
-        
-        
+        return top_ordering if len(top_ordering) == numCourses else []
