@@ -1,5 +1,7 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        
+        # build adjacency list
         G = defaultdict(list)
         indegree = defaultdict(int)
         
@@ -7,26 +9,25 @@ class Solution:
             G[pre].append(crs)
             indegree[crs] += 1
         
-        print(indegree)
-        print(G)
-        
-        zero_degree = []
+        # collect courses with zero prerequisites
+        zero_indegree = []
         for crs in range(numCourses):
             if indegree[crs] == 0:
-                zero_degree.append(crs)
-        print(indegree[3])
-        
-        print(zero_degree)
+                zero_indegree.append(crs)
         
         top_ordering = []
-        while zero_degree:
-            pre = zero_degree.pop()
+        
+        while zero_indegree:
+            pre = zero_indegree.pop()
             top_ordering.append(pre)
+            
+            # decrease degree for dependencies
             for crs in G[pre]:
                 indegree[crs] -= 1
                 if indegree[crs] == 0:
-                    zero_degree.append(crs)
-        print(indegree)
-        print(top_ordering)
+                    zero_indegree.append(crs)
         
+        # if we are not able to get all courses into the topological ordering then there was a cycle
         return len(top_ordering) == numCourses
+        
+        
