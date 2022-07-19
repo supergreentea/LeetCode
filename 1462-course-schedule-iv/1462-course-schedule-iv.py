@@ -11,11 +11,8 @@ class Solution:
         
         zero_indegree = [crs for crs in range(numCourses) if indegree[crs] == 0]
         
-        top_ordering = []
-        
         while zero_indegree:
             pre = zero_indegree.pop()
-            top_ordering.append(pre)
             for crs in G[pre]:
                 indegree[crs] -= 1
                 if indegree[crs] == 0:
