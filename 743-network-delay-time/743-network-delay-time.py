@@ -3,26 +3,26 @@ class Solution:
         graph = defaultdict(list)
         for u, v, w in times:
             graph[u].append((v, w))
-
-        travel_time = [math.inf for _ in range(n + 1)]
-        travel_time[k] = 0
-
-        PQ = []
-        heappush(PQ, (0, k))
+        
+        min_times = { node : math.inf for node in range(1, n + 1) }
+        min_times[k] = 0
+        
+        PQ = [(0, k)]
         while PQ:
-            delay, node = heappop(PQ)
-            if delay > travel_time[node]:
+            cur_time, node = heappop(PQ)
+            if cur_time > min_times[node]:
                 continue
-            for neighbor, time in graph[node]:
-                new_travel_time = travel_time[node] + time
-                if new_travel_time < travel_time[neighbor]:
-                    travel_time[neighbor] = new_travel_time
-                    heappush(PQ, (new_travel_time, neighbor))
-
-        max_travel_time = 0
-        for node in range(1, n + 1):
-            if travel_time[node] == math.inf:
+            for nbr, time in graph[node]:
+                new_time = min_times[node] + time
+                if new_time < min_times[nbr]:
+                    min_times[nbr] = new_time
+                    heappush(PQ, (new_time, nbr))
+        
+        print(min_times)
+        
+        ans = 0
+        for time in min_times.values():
+            if time == math.inf:
                 return -1
-            max_travel_time = max(max_travel_time, travel_time[node])
-
-        return max_travel_time
+            ans = max(ans, time)
+        return ans
