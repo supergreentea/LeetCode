@@ -1,26 +1,26 @@
 class Solution:
     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
-        graph = defaultdict(list)
+        G = defaultdict(list)
         for u, v, w in times:
-            graph[u].append((v, w))
+            G[u].append((v, w))
         
-        distance = { node : math.inf for node in range(1, n + 1) }
-        
-        distance[k] = 0
+        distances = { node : math.inf for node in range(1, n + 1) }
+        distances[k] = 0
         
         PQ = [(0, k)]
         while PQ:
             cur_dist, cur_node = heappop(PQ)
-            if cur_dist > distance[cur_node]: continue
-            for nbr, w in graph[cur_node]:
+            if cur_dist > distances[cur_node]:
+                continue
+            for nbr, w in G[cur_node]:
                 new_dist = cur_dist + w
-                if new_dist < distance[nbr]:
-                    distance[nbr] = new_dist
+                if new_dist < distances[nbr]:
+                    distances[nbr] = new_dist
                     heappush(PQ, (new_dist, nbr))
         
         ans = 0
-        for dist in distance.values():
+        for dist in distances.values():
             if dist == math.inf:
                 return -1
-            ans = max(dist, ans)
+            ans = max(ans, dist)
         return ans
