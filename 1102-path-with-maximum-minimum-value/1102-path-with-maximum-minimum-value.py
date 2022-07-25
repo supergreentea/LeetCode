@@ -3,13 +3,12 @@ class Solution:
         ROWS, COLS = len(grid), len(grid[0])
         scores = [[-math.inf for col in range(COLS)] for row in range(ROWS)]
         scores[0][0] = grid[0][0]
-        visited = set([(0, 0)])
-        
+
         def get_valid_neighbors(row, col):
             valid_neighbors = []
             for row_offset, col_offset in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
                 new_row, new_col = row + row_offset, col + col_offset
-                if new_row >= 0 and new_row < ROWS and new_col >= 0 and new_col < COLS and (new_row, new_col) not in visited:
+                if new_row >= 0 and new_row < ROWS and new_col >= 0 and new_col < COLS:
                     valid_neighbors.append((new_row, new_col))
             return valid_neighbors
         
@@ -25,7 +24,6 @@ class Solution:
                 if new_score > scores[neighbor_row][neighbor_col]:
                     scores[neighbor_row][neighbor_col] = new_score
                     heappush(PQ, (-new_score, neighbor_row, neighbor_col))
-                    visited.add((neighbor_row, neighbor_col))
                     
         return scores[ROWS - 1][COLS - 1]
             
