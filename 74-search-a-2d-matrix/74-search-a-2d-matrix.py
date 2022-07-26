@@ -2,7 +2,6 @@ class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         ROWS, COLS = len(matrix), len(matrix[0])
         
-        
         # get largest row where first element is smaller than target
         def get_row_to_search():
             lo, hi = 0, ROWS - 1
@@ -16,7 +15,6 @@ class Solution:
                     lo = middle + 1
                 else:
                     hi = middle - 1
-                    
             return -1
         
         # try to find target in row
@@ -32,9 +30,7 @@ class Solution:
                     lo = middle + 1
             return -1
                     
-        
         row_to_search = get_row_to_search()
-        
         if row_to_search == -1: # target is smaller than all elements in matrix
             return False
         
