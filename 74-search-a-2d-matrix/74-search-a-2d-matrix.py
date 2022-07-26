@@ -35,12 +35,8 @@ class Solution:
         
         row_to_search = get_row_to_search()
         
-        print(row_to_search)
-        
         if row_to_search == -1: # target is smaller than all elements in matrix
             return False
-        
-        
         
         return find_target_in_row(row_to_search) != -1
         
