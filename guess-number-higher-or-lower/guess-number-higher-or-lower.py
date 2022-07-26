@@ -7,14 +7,16 @@
 
 class Solution:
     def guessNumber(self, n: int) -> int:
-        l, r = 1, n
-        while l <= r:
-            m = l + (r - l) // 2
-            if guess(m) == -1:
-                r = m - 1
-            elif guess(m) == 1:
-                l = m + 1
-            else:
-                return m
-            
+        l, r = 1, n 
         
+        while l <= r:
+            m = (l + r) // 2
+            res = guess(m)
+            if res == 0:
+                return m
+            if res == -1:
+                r = m - 1
+            elif res == 1:
+                l = m + 1
+        
+        return -1
