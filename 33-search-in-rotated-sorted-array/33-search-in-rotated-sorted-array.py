@@ -1,18 +1,3 @@
-"""
-Binary search.
-
-1. We have two pointers left and right starting at 0 and len(nums) - 1
-2. while left <= right:
-        get middle
-        if middle is target, return middle
-        if left half is sorted and target in left half, search left half else search right half
-        otherwise if right half is sorted and target in right half, search right half else search left half
-
-Time Complexity: O(log n)
-Space Complexity: O(1)
-"""
-
-
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
         left, right = 0, len(nums) - 1
