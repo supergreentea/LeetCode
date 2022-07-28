@@ -8,11 +8,12 @@ class Solution:
             count = 0
             row, col = ROWS - 1, 0
             while row >= 0 and col < COLS:
-                if matrix[row][col] > mid:
-                    larger = min(larger, matrix[row][col])
+                cur = matrix[row][col]
+                if cur > mid:
+                    larger = min(larger, cur)
                     row -= 1
                 else:
-                    smaller = max(smaller, matrix[row][col])
+                    smaller = max(smaller, cur)
                     col += 1
                     count += row + 1
             return count, smaller, larger
