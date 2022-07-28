@@ -2,8 +2,9 @@ class Solution:
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
         ROWS, COLS = len(matrix), len(matrix[0])
         MIN, MAX = matrix[0][0], matrix[ROWS - 1][COLS - 1]
+        start, end = MIN, MAX
         
-        def get_count(mid, smaller, larger):
+        def get_counts(mid, smaller, larger):
             count = 0
             row, col = ROWS - 1, 0
             while row >= 0 and col < COLS:
@@ -15,12 +16,11 @@ class Solution:
                     col += 1
                     count += row + 1
             return count, smaller, larger
-        
-        start, end = MIN, MAX
+                    
         while start < end:
             mid = (start + end) // 2
             smaller, larger = MIN, MAX
-            count, smaller, larger = get_count(mid, smaller, larger)
+            count, smaller, larger = get_counts(mid, smaller, larger)
             if count == k:
                 return smaller
             if count < k:
