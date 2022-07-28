@@ -5,7 +5,7 @@ class Solution:
         
         start, end = MIN, MAX
         
-        def get_count(mid, smaller, larger):
+        def get_count_smaller(mid, smaller, larger):
             count = 0
             row, col = ROWS - 1, 0
             while row >= 0 and col < COLS:
@@ -22,7 +22,7 @@ class Solution:
         while start < end:
             mid = (start + end) // 2
             smaller, larger = MIN, MAX
-            count, smaller, larger = get_count(mid, smaller, larger)
+            count, smaller, larger = get_count_smaller(mid, smaller, larger)
             if count == k:
                 return smaller
             if count < k:
