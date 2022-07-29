@@ -2,7 +2,6 @@ class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         ROWS, COLS = len(grid), len(grid[0])
         visited = set()
-        
         islands = 0
         
         def bfs(row, col):
@@ -10,18 +9,18 @@ class Solution:
             islands += 1
             queue = deque([(row, col)])
             visited.add((row, col))
+            
             while queue:
                 cur_row, cur_col = queue.popleft()
                 for row_offset, col_offset in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
-                    next_row, next_col = cur_row + row_offset, cur_col + col_offset
-                    if next_row >= 0 and next_row < ROWS and next_col >= 0 and next_col < COLS and (next_row, next_col) not in visited and grid[next_row][next_col] == '1':
-                        visited.add((next_row, next_col))
-                        queue.append((next_row, next_col))
+                    new_row, new_col = cur_row + row_offset, cur_col + col_offset
+                    if new_row >= 0 and new_row < ROWS and new_col >= 0 and new_col < COLS and (new_row, new_col) not in visited and grid[new_row][new_col] == "1":
+                        queue.append((new_row, new_col))
+                        visited.add((new_row, new_col))
         
-        for row in range(ROWS):
-            for col in range(COLS):
-                if (row, col) not in visited and grid[row][col] == '1':
-                    bfs(row, col)
-        
+        for r in range(ROWS):
+            for c in range(COLS):
+                if grid[r][c] == "1" and (r, c) not in visited:
+                    bfs(r, c)
+                    
         return islands
-                
