@@ -15,11 +15,12 @@ class Solution:
             else:
                 stack.append((c, 1))
         
-        res = ""
+        res = deque([])
         while stack:
             char, count = stack.pop()
-            res = char * count + res
+            for _ in range(count):
+                res.appendleft(char)
         
-        return res
+        return ''.join(res)
                     
             
