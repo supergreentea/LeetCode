@@ -1,12 +1,13 @@
 class Solution:
     def twoCitySchedCost(self, costs: List[List[int]]) -> int:
-        costs.sort(key = lambda x : x[0] - x[1])
         
+        # sort by gain company gets by sending person to city A instead of city B
+        costs.sort(key = lambda cost : cost[0] - cost[1])
+        
+        total = 0
         n = len(costs) // 2
         
-        cost = 0
-        
         for i in range(n):
-            cost += costs[i][0] + costs[i + n][1]
+            total += costs[i][0] + costs[i + n][1]
         
-        return cost
+        return total
