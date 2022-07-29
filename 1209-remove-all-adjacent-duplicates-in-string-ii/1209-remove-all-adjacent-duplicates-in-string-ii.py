@@ -1,13 +1,17 @@
 class Solution:
     def removeDuplicates(self, s: str, k: int) -> str:
-        stack = []
+        stack = deque([])
         
         for c in s:
             if stack and stack[-1][0] == c:
                 char, count = stack.pop()
-                if count + 1 == k:
+                count += 1
+                if count >= k:
+                    count -= k
+                if count == 0:
                     continue
-                stack.append((char, count + 1))
+                else:
+                    stack.append((char, count))
             else:
                 stack.append((c, 1))
         
@@ -17,11 +21,5 @@ class Solution:
             res = char * count + res
         
         return res
-            
-        
-        
-            
-            
-                
                     
             
