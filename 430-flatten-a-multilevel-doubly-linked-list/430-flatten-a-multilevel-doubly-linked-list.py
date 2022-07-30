@@ -1,11 +1,26 @@
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val, prev, next, child):
+        self.val = val
+        self.prev = prev
+        self.next = next
+        self.child = child
+"""
+
 class Solution:
     def flatten(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        if not head:
-            return None
         
-        def get_flattened_tail(node):
+        def get_tail(node):
+            cur = node
+            while cur and cur.next:
+                cur = cur.next
+            return cur
+        
+        def flatten_and_get_tail(node = head):
             if not node:
-                return node
+                return None
+            
             tail = cur = node
             while cur:
                 nxt = cur.next
@@ -13,7 +28,7 @@ class Solution:
                     tail = cur
                 if cur.child:
                     # get tail
-                    child_tail = get_flattened_tail(cur.child)
+                    child_tail = flatten_and_get_tail(cur.child)
                     
                     # link to child
                     cur.next = cur.child
@@ -25,9 +40,8 @@ class Solution:
                         nxt.prev = child_tail
                     
                     cur.child = None
-                # move to original next node if it exists, otherwise point to node below
                 cur = nxt if nxt else cur.next
             return tail
         
-        get_flattened_tail(head)
+        flatten_and_get_tail()
         return head
