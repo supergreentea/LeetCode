@@ -1,10 +1,10 @@
 class Solution:
     def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
         res = []
-        
         n = len(graph)
         
-        def backtrack(node, path):
+        
+        def backtrack(node = 0, path = [0]):
             if node == n - 1:
                 res.append(path.copy())
                 return
@@ -13,7 +13,6 @@ class Solution:
                 path.append(nbr)
                 backtrack(nbr, path)
                 path.pop()
-            
-        backtrack(0, [0])
         
+        backtrack()
         return res
