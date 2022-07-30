@@ -11,12 +11,6 @@ class Node:
 class Solution:
     def flatten(self, head: 'Optional[Node]') -> 'Optional[Node]':
         
-        def get_tail(node):
-            cur = node
-            while cur and cur.next:
-                cur = cur.next
-            return cur
-        
         def flatten_and_get_tail(node = head):
             if not node:
                 return None
