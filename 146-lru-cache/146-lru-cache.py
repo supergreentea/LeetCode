@@ -1,45 +1,61 @@
 class Node:
     
-    def __init__(self, key, val):
+    def __init__(self, key = -1, val = -1):
         self.key, self.val = key, val
         self.prev = self.next = None
 
 class LRUCache:
 
     def __init__(self, capacity: int):
-        self.cache = {}
-        self.left, self.right = Node(0, 0), Node(0, 0)
+        self.left, self.right = Node(), Node()
         self.left.next, self.right.prev = self.right, self.left
+        
         self.capacity = capacity
+        
+        # { key : key node }
+        self.cache = {}
     
-    # insert at end
+    # inserts node at right
     def insert(self, node):
         prev, nxt = self.right.prev, self.right
         prev.next = nxt.prev = node
         node.prev, node.next = prev, nxt
         
-    # remove node
-    def remove(self, node):
+    # deletes node
+    def delete(self, node):
         prev, nxt = node.prev, node.next
-        prev.next, nxt.prev = nxt, prev
+        prev.next, nxt.prev = nxt, prev 
     
+    # check if key is in cache
+    """
+    if key is in cache
+        delete node and reinsert so key is LRU
+    Else
+        return -1
+    
+    """
     def get(self, key: int) -> int:
         if key in self.cache:
-            self.remove(self.cache[key])
+            self.delete(self.cache[key])
             self.insert(self.cache[key])
             return self.cache[key].val
-        return -1
-
+        else:
+            return -1
+    
+    """
+    """
     def put(self, key: int, value: int) -> None:
         if key in self.cache:
-            self.remove(self.cache[key])
-        self.cache[key] = Node(key, value)
-        self.insert(self.cache[key])
-        
-        if len(self.cache) > self.capacity:
-            lru = self.left.next
-            self.remove(lru)
-            del self.cache[lru.key]
+            self.cache[key].val = value
+            self.delete(self.cache[key])
+            self.insert(self.cache[key])
+        else:
+            self.cache[key] = Node(key, value)
+            self.insert(self.cache[key])
+            if len(self.cache) > self.capacity:
+                lru = self.left.next
+                self.delete(self.cache[lru.key])
+                del self.cache[lru.key]
 
 
 # Your LRUCache object will be instantiated and called as such:
