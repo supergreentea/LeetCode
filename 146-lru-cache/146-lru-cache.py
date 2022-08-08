@@ -46,16 +46,13 @@ class LRUCache:
     """
     def put(self, key: int, value: int) -> None:
         if key in self.cache:
-            self.cache[key].val = value
             self.delete(self.cache[key])
-            self.insert(self.cache[key])
-        else:
-            self.cache[key] = Node(key, value)
-            self.insert(self.cache[key])
-            if len(self.cache) > self.capacity:
-                lru = self.left.next
-                self.delete(self.cache[lru.key])
-                del self.cache[lru.key]
+        self.cache[key] = Node(key, value)
+        self.insert(self.cache[key])
+        if len(self.cache) > self.capacity:
+            lru = self.left.next
+            self.delete(self.cache[lru.key])
+            del self.cache[lru.key]
 
 
 # Your LRUCache object will be instantiated and called as such:
