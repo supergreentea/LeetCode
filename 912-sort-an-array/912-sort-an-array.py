@@ -3,20 +3,18 @@ class Solution:
         
         def quicksort(l, r):
             if l < r:
-                pi = partition(l, r)
-                quicksort(l, pi - 1)
-                quicksort(pi + 1, r)
+                p = partition(l, r)
+                quicksort(l, p - 1)
+                quicksort(p + 1, r)
         
         def partition(l, r):
             p = randint(l, r)
             nums[p], nums[r] = nums[r], nums[p]
-            
             i = l
             for j in range(l, r):
                 if nums[j] < nums[r]:
                     nums[i], nums[j] = nums[j], nums[i]
                     i += 1
-            
             nums[i], nums[r] = nums[r], nums[i]
             return i
         
