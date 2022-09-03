@@ -1,7 +1,7 @@
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
         par = [i for i in range(n)]
-        rank = [1] * n
+        rank = [1 for i in range(n)]
         
         def find(a):
             while a != par[a]:
@@ -23,7 +23,10 @@ class Solution:
         
         components = n
         
-        for a, b in edges:
-            components -= union(a, b)
+        for u, v in edges:
+            components -= union(u, v)
         
         return components
+        
+        
+        
