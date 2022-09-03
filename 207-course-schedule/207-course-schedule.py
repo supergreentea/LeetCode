@@ -1,7 +1,5 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        
-        # build gragh
         G = defaultdict(list)
         indegree = defaultdict(int)
         
@@ -9,18 +7,20 @@ class Solution:
             G[pre].append(crs)
             indegree[crs] += 1
         
-        zero_indegree = []
+        top_ordering = []
+        
+        stack = []
+        
         for crs in range(numCourses):
             if indegree[crs] == 0:
-                zero_indegree.append(crs)
+                stack.append(crs)
         
-        top_ordering = []
-        while zero_indegree:
-            pre = zero_indegree.pop()
+        while stack:
+            pre = stack.pop()
             top_ordering.append(pre)
             for crs in G[pre]:
                 indegree[crs] -= 1
                 if indegree[crs] == 0:
-                    zero_indegree.append(crs)
+                    stack.append(crs)
         
-        return top_ordering if len(top_ordering) == numCourses else []
+        return len(top_ordering) == numCourses
