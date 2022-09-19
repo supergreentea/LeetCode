@@ -9,8 +9,4 @@ class Solution:
                 open_index = file.find("(")
                 content = file[open_index + 1 : file.find(")")]
                 content_to_paths[content].append(directory + "/" + file[:open_index])
-        res = []
-        for key, value in content_to_paths.items():
-            if len(value) >= 2:
-                res.append(value)
-        return res
+        return [val for val in content_to_paths.values() if len(val) >= 2]
