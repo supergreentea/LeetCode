@@ -6,7 +6,7 @@ class Solution:
             directory = s[0]
             files = s[1:]
             for file in files:
-                open_index = file.find("(")
-                content = file[open_index + 1 : file.find(")")]
+                open_index, close_index = file.find("("), file.find(")")
+                content = file[open_index + 1 : close_index]
                 content_to_paths[content].append(directory + "/" + file[:open_index])
         return [val for val in content_to_paths.values() if len(val) >= 2]
