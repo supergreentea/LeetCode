@@ -1,23 +1,29 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         graph = defaultdict(list)
-        indegree = defaultdict(int)
         
         for crs, pre in prerequisites:
             graph[pre].append(crs)
-            indegree[crs] += 1
         
-        zero_indegrees = []
-        for crs in range(numCourses):
-            if indegree[crs] == 0:
-                zero_indegrees.append(crs)
-        topological_ordering = []
-        while zero_indegrees:
-            pre = zero_indegrees.pop()
-            topological_ordering.append(pre)
-            for crs in graph[pre]:
-                indegree[crs] -= 1
-                if indegree[crs] == 0:
-                    zero_indegrees.append(crs)
+        instack = [False] * numCourses
+        visited = [False] * numCourses
         
-        return len(topological_ordering) == numCourses
+        def dfs(course):
+            if instack[course]:
+                return True
+            if visited[course]:
+                return False
+            
+            instack[course] = True
+            visited[course] = True
+            for neighbor in graph[course]:
+                if dfs(neighbor):
+                    return True
+            instack[course] = False
+            return False
+        
+        for i in range(numCourses):
+            if dfs(i):
+                return False
+        
+        return True
