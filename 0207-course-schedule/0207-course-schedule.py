@@ -8,7 +8,7 @@ class Solution:
         instack = [False] * numCourses
         visited = [False] * numCourses
         
-        def dfs(course):
+        def isCyclic(course):
             if instack[course]:
                 return True
             if visited[course]:
@@ -17,13 +17,13 @@ class Solution:
             instack[course] = True
             visited[course] = True
             for neighbor in graph[course]:
-                if dfs(neighbor):
+                if isCyclic(neighbor):
                     return True
             instack[course] = False
             return False
         
         for i in range(numCourses):
-            if dfs(i):
+            if isCyclic(i):
                 return False
         
         return True
