@@ -1,18 +1,20 @@
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         ROWS, COLS = len(board), len(board[0])
-        wordIndex = 0
         visited = set()
         
-        def backtrack(wordIndex, row, col):
-            if wordIndex == len(word):
+        def backtrack(index: int, row: int, col: int):
+            if index == len(word):
                 return True
-            if not (row >= 0 and row < ROWS and col >=0 and col < COLS) or (row, col) in visited or word[wordIndex] != board[row][col]:
+            
+            if (row < 0 or row >= ROWS or col < 0 or col >= COLS) or \
+                (row, col) in visited or \
+                board[row][col] != word[index]:
                 return False
             visited.add((row, col))
             for rowOffset, colOffset in [(0, 1), (0, -1), (-1, 0), (1, 0)]:
                 newRow, newCol = row + rowOffset, col + colOffset
-                if backtrack(wordIndex + 1, newRow, newCol):
+                if backtrack(index + 1, newRow, newCol):
                     return True
             visited.remove((row, col))
             return False
@@ -23,4 +25,3 @@ class Solution:
                     return True
         
         return False
-        
