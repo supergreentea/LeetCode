@@ -16,10 +16,8 @@ class Solution:
             row, col = queue.popleft()
             for rowOffset, colOffset in [(0, 1), (0, -1), (-1, 0), (1, 0)]:
                 newRow, newCol = row + rowOffset, col + colOffset
-                if (newRow >= 0 and newRow < ROWS and newCol >= 0 and newCol < COLS) \
-                    and rooms[newRow][newCol] == INF:
-                        rooms[newRow][newCol] = rooms[row][col] + 1
-                        queue.append((newRow, newCol))
-                        
-                    
+                if (newRow >= 0 and newRow < ROWS and newCol >= 0 and newCol < COLS) and \
+                    rooms[newRow][newCol] == INF:
+                    rooms[newRow][newCol] = rooms[row][col] + 1
+                    queue.append((newRow, newCol))
         
