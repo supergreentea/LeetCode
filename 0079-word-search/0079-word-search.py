@@ -3,13 +3,11 @@ class Solution:
         ROWS, COLS = len(board), len(board[0])
         visited = set()
         
-        def backtrack(index: int, row: int, col: int):
+        def backtrack(index: int, row: int, col: int) -> None:
             if index == len(word):
                 return True
-            
             if (row < 0 or row >= ROWS or col < 0 or col >= COLS) or \
-                (row, col) in visited or \
-                board[row][col] != word[index]:
+                (row, col) in visited or word[index] != board[row][col]:
                 return False
             visited.add((row, col))
             for rowOffset, colOffset in [(0, 1), (0, -1), (-1, 0), (1, 0)]:
