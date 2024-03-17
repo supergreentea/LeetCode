@@ -1,13 +1,13 @@
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
         N = len(temperatures)
-        answer = [0] * N
+        answers = [0] * N
         stack = []
         
-        for currDay, currTemp in enumerate(temperatures):
-            while stack and temperatures[stack[-1]] < currTemp:
+        for day, temp in enumerate(temperatures):
+            while stack and temperatures[stack[-1]] < temp:
                 prevDay = stack.pop()
-                answer[prevDay] = currDay - prevDay
-            stack.append(currDay)
+                answers[prevDay] = day - prevDay
+            stack.append(day)
         
-        return answer
+        return answers
