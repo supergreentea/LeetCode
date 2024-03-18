@@ -6,7 +6,6 @@ class Solution:
         ROWS, COLS = len(rooms), len(rooms[0])
         INF = 2147483647
         queue = deque()
-        
         for row in range(ROWS):
             for col in range(COLS):
                 if rooms[row][col] == 0:
@@ -16,8 +15,10 @@ class Solution:
             row, col = queue.popleft()
             for rowOffset, colOffset in [(0, 1), (0, -1), (-1, 0), (1, 0)]:
                 newRow, newCol = row + rowOffset, col + colOffset
-                if (newRow >= 0 and newRow < ROWS and newCol >= 0 and newCol < COLS) and \
-                    rooms[newRow][newCol] == INF:
+                if newRow >= 0 and newRow < ROWS and newCol >= 0 and newCol < COLS \
+                    and rooms[newRow][newCol] == INF:
                     rooms[newRow][newCol] = rooms[row][col] + 1
                     queue.append((newRow, newCol))
+        
+        
         
