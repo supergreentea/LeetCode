@@ -16,7 +16,7 @@ class Solution:
         
         answer = []
         
-        def backtrack(digitIndex: int, combination: List[str]) -> None:
+        def backtrack(digitIndex: int = 0, combination: List[str] = []) -> None:
             if len(combination) == len(digits):
                 answer.append("".join(combination[:]))
                 return
@@ -25,5 +25,5 @@ class Solution:
                 backtrack(digitIndex + 1, combination)
                 combination.pop()
         
-        backtrack(0, [])
+        backtrack()
         return answer
