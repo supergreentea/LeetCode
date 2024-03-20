@@ -10,8 +10,6 @@ class Solution:
         if not root:
             return res
         
-        answer = []
-        
         queue = deque([root])
         while queue:
             level = []
@@ -21,5 +19,6 @@ class Solution:
                 for child in [node.left, node.right]:
                     if child:
                         queue.append(child)
-            answer.append(level)
-        return answer
+            res.append(level)
+        return res
+        
