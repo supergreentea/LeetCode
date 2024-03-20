@@ -3,7 +3,7 @@ class Solution:
         if not digits:
             return []
         
-        charMapping = {
+        digitToLetters = {
             "2": "abc",
             "3": "def",
             "4": "ghi",
@@ -14,16 +14,16 @@ class Solution:
             "9": "wxyz"
         }
         
-        combinations = []
+        answer = []
         
-        def backtrack(combination: List[int] = [], index: int = 0):
+        def backtrack(digitIndex: int, combination: List[str]) -> None:
             if len(combination) == len(digits):
-                combinations.append("".join(combination[:]))
+                answer.append("".join(combination[:]))
                 return
-            for char in charMapping[digits[index]]:
-                combination.append(char)
-                backtrack(combination, index + 1)
+            for letter in digitToLetters[digits[digitIndex]]:
+                combination.append(letter)
+                backtrack(digitIndex + 1, combination)
                 combination.pop()
         
-        backtrack()
-        return combinations
+        backtrack(0, [])
+        return answer
