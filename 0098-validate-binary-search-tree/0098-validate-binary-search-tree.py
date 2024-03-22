@@ -7,7 +7,7 @@
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
         
-        def validate(node: TreeNode = root, lowerBound: float = -math.inf, upperBound: float = math.inf):
+        def validate(node: TreeNode = root, lowerBound: int = -math.inf, upperBound: int = math.inf) -> bool:
             if not node:
                 return True
             if node.val <= lowerBound or node.val >= upperBound:
@@ -15,3 +15,4 @@ class Solution:
             return validate(node.left, lowerBound, node.val) and validate(node.right, node.val, upperBound)
         
         return validate()
+            
