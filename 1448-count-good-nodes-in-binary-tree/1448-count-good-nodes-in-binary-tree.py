@@ -8,16 +8,17 @@ class Solution:
     def goodNodes(self, root: TreeNode) -> int:
         good = 0
         if not root:
-            return good
+            return 0
         
-        def dfs(node: TreeNode = root, maxSoFar: int = root.val) -> None:
+        def count(node: TreeNode = root, maxSoFar: int = root.val) -> None:
+            if not node:
+                return
             nonlocal good
-            if node:
-                if node.val >= maxSoFar:
-                    good += 1
-                    maxSoFar = node.val
-                for child in [node.left, node.right]:
-                    dfs(child, maxSoFar)
+            if node.val >= maxSoFar:
+                good += 1
+            maxSoFar = max(maxSoFar, node.val)
+            count(node.left, maxSoFar)
+            count(node.right, maxSoFar)
         
-        dfs()
+        count()
         return good
