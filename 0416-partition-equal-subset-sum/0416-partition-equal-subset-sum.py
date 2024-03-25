@@ -5,11 +5,11 @@ class Solution:
             return False
         
         @lru_cache(None)
-        def backtrack(index: int = 0, currentSum: int = 0) -> bool:
+        def dp(index: int = 0, currentSum: int = 0) -> bool:
             if currentSum == total - currentSum:
                 return True
             if currentSum > total - currentSum or index >= len(nums):
                 return False
-            return backtrack(index + 1, currentSum) or backtrack(index + 1, currentSum + nums[index])
+            return dp(index + 1, currentSum) or dp(index + 1, currentSum + nums[index])
         
-        return backtrack()
+        return dp()
