@@ -1,12 +1,14 @@
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        #time: O(N * sum of nums)
+        #space: O(N) -> max depth of recursion
         
         @cache
-        def get_count(index = 0, cur_sum = 0):
-            if index == len(nums):
-                if cur_sum == target:
+        def getCount(index: int, currentSum: int) -> int:
+            if index >= len(nums):
+                if currentSum == target:
                     return 1
                 return 0
-            return get_count(index + 1, cur_sum + nums[index]) + get_count(index + 1, cur_sum - nums[index])
+            return getCount(index + 1, currentSum + nums[index]) + getCount(index + 1, currentSum - nums[index])
         
-        return get_count()
+        return getCount(0, 0)
