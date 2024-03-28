@@ -1,5 +1,8 @@
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
+        #time: O(m * n * 4 ^ L))
+        #space: O(m * n)
+        # if we can mark board, space would be O(L) for depth of backtrack recursion stack
         ROWS, COLS = len(board), len(board[0])
         index = 0
         visited = set()
