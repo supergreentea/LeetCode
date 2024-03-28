@@ -11,10 +11,8 @@ class Solution:
         def preorder(node: TreeNode = root) -> None:
             if node:
                 ans.append(node.val)
-                if node.left:
-                    preorder(node.left)
-                if node.right:
-                    preorder(node.right)
+                for child in [node.left, node.right]:
+                    preorder(child)
         
         preorder()
         return ans
