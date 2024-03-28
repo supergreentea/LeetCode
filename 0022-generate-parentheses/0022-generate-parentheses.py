@@ -1,20 +1,19 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-        answer = []
+        ans = []
         
-        def backtrack(combination: List[str], left: int, right: int) -> None:
+        def backtrack(combination: List[str] = [], left: int = 0, right: int = 0) -> None:
             if len(combination) == 2 * n:
-                answer.append("".join(combination[:]))
+                ans.append("".join(combination[:]))
                 return
             if left < n:
                 combination.append("(")
                 backtrack(combination, left + 1, right)
                 combination.pop()
-            if right < left:
+            if left > right:
                 combination.append(")")
                 backtrack(combination, left, right + 1)
                 combination.pop()
         
-        backtrack([], 0, 0)
-        
-        return answer
+        backtrack()
+        return ans
