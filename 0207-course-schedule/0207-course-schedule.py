@@ -1,5 +1,8 @@
 class Solution:
-    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:\
+        #time: O(N + M) 
+        #space: O(N + M)
+        
         graph = defaultdict(list)
         
         indegrees = defaultdict(int)
