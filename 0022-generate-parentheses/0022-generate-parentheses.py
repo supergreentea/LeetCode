@@ -1,6 +1,6 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-        #time: 2^N
+        #time: 2^(2N)
         #space: O(N)
         ans = []
         
