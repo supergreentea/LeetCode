@@ -1,5 +1,7 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
+        #time: 2^N
+        #space: 2^N
         ans = []
         
         def backtrack(combination: List[str] = [], left: int = 0, right: int = 0) -> None:
