@@ -1,6 +1,6 @@
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
-        #time: O(4 ^ len(digits))
+        #time: O(4 ^ len(digits) * N)
         #space: O(len((digits)))
         
         if not digits:
