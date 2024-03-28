@@ -18,9 +18,10 @@ class Solution:
         
         def backtrack(digitIndex: int = 0, combination: List[str] = []) -> None:
             if len(combination) == len(digits):
-                answer.append("".join(combination[:]))
+                answer.append("".join(combination))
                 return
-            for letter in digitToLetters[digits[digitIndex]]:
+            digit = digits[digitIndex]
+            for letter in digitToLetters[digit]:
                 combination.append(letter)
                 backtrack(digitIndex + 1, combination)
                 combination.pop()
