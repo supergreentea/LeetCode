@@ -15,4 +15,3 @@ class Solution:
             return validate(node.left, lowerBound, node.val) and validate(node.right, node.val, upperBound)
         
         return validate()
-            
