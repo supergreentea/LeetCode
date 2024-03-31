@@ -1,5 +1,8 @@
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        #time: O(M * N)
+        #space: O(M * N)
+        
         M, N = len(text1), len(text2)
         
         dp = [[0] * (N + 1) for _ in range(M + 1)]
