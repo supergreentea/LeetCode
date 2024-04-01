@@ -1,7 +1,6 @@
 class Solution:
     def isInterleave(self, s1: str, s2: str, s3: str) -> bool:
-        M, N = len(s1), len(s2)
-        if len(s3) != M + N:
+        if len(s3) != len(s1) + len(s2):
             return False
         
         @cache
