@@ -1,5 +1,8 @@
 class Solution:
     def countSubstrings(self, s: str) -> int:
+        # time: O(N ^ 2)
+        # space: O(1)
+        
         count = 0
         
         def expandAroundCenter(left: int, right: int) -> None:
