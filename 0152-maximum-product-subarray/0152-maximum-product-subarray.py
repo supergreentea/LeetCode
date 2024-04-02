@@ -1,17 +1,16 @@
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
-        # time: O(N)
-        # space: O(1)
         N = len(nums)
-        if N == 0:
-            return 0
-        minSoFar = maxSoFar = result = nums[0]
-        result = maxSoFar
-        for i in range(1, N):
-            num = nums[i]
-            newMax = max(num, maxSoFar * num, minSoFar * num)
-            minSoFar = min(num, maxSoFar * num, minSoFar * num)
+        
+        maxSoFar = minSoFar = nums[0]
+        
+        maxProduct = maxSoFar
+        
+        for i in range(1, len(nums)):
+            newMax = max(nums[i], maxSoFar * nums[i], minSoFar * nums[i])
+            minSoFar = min(nums[i], maxSoFar * nums[i], minSoFar * nums[i])
             maxSoFar = newMax
-            result = max(result, maxSoFar)
-        return result
-            
+            maxProduct = max(maxProduct, newMax)
+        
+        return maxProduct
+        
