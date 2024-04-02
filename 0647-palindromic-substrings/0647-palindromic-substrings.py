@@ -2,16 +2,14 @@ class Solution:
     def countSubstrings(self, s: str) -> int:
         count = 0
         
-        def expandAroundCenter(centerA: int, centerB: int) -> None:
+        def expandAroundCenter(left: int, right: int) -> None:
             nonlocal count
-            while centerA >= 0 and centerB < len(s) and s[centerA] == s[centerB]:
+            while left >= 0 and right < len(s) and s[left] == s[right]:
                 count += 1
-                centerA -= 1
-                centerB += 1
+                left, right = left - 1, right + 1
         
         for i in range(len(s)):
             expandAroundCenter(i, i)
             expandAroundCenter(i, i + 1)
         
         return count
-                
