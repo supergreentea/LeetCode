@@ -3,10 +3,9 @@ class Solution:
         N = len(nums)
         dp = [1] * N
         
-        for end in range(N):
+        for end in range(1, N):
             for prevEnd in range(end):
                 if nums[end] > nums[prevEnd]:
-                    dp[end] = max(dp[end], dp[prevEnd] + 1)
+                    dp[end] = max(dp[end], 1 + dp[prevEnd])
         
         return max(dp)
-        
