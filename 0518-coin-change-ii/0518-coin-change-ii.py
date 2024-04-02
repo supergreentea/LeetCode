@@ -1,22 +1,15 @@
-from typing import List
-from functools import cache
-
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
         
         @cache
-        def dp(remaining: int, index: int = 0) -> int:
-            if remaining < 0:
+        def dp(index: int = 0, currentAmount: int = 0) -> int:
+            if index >= len(coins):
                 return 0
-            if remaining == 0:
+            if currentAmount > amount:
+                return 0
+            if currentAmount == amount:
                 return 1
-            if index == len(coins):
-                return 0
-            combinations = 0
-            # Use the current coin
-            combinations += dp(remaining - coins[index], index)
-            # Skip the current coin
-            combinations += dp(remaining, index + 1)
-            return combinations
-                    
-        return dp(amount)
+            return dp(index, currentAmount + coins[index]) + dp(index + 1, currentAmount)
+        
+        return dp()
+            
