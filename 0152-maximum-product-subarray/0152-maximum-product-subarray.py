@@ -1,5 +1,8 @@
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
+        # time: O(N)
+        # space: O(1)
+        
         N = len(nums)
         
         maxSoFar = minSoFar = nums[0]
