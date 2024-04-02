@@ -1,5 +1,7 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
+        #time: O(amount * num coins)
+        #space: O(amount)
         
         @cache
         def fewestCoins(remainingAmount: int = amount) -> int:
