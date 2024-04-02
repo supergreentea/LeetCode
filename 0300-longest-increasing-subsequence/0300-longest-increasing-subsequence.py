@@ -1,5 +1,8 @@
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
+        
+        #time: O(N ^ 2)
+        #space: O(N)
         N = len(nums)
         dp = [1] * N
         
