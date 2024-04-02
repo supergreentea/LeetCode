@@ -7,18 +7,17 @@
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
         good = 0
-        if not root:
-            return 0
         
-        def count(node: TreeNode = root, maxSoFar: int = root.val) -> None:
-            if not node:
-                return
+        def count(node: TreeNode = root, maxSoFar: int = -math.inf) -> None:
             nonlocal good
-            if node.val >= maxSoFar:
-                good += 1
-            maxSoFar = max(maxSoFar, node.val)
-            count(node.left, maxSoFar)
-            count(node.right, maxSoFar)
+            if node:
+                if node.val >= maxSoFar:
+                    good += 1
+                for child in [node.left, node.right]:
+                    count(child, max(node.val, maxSoFar))
         
         count()
         return good
+            
+                
+                
