@@ -1,23 +1,15 @@
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
-        #time: O(m * n * 4 ^ L))
-        #space: O(m * n)
-        # if we can mark board, space would be O(L) for depth of backtrack recursion stack
-        ROWS, COLS = len(board), len(board[0])
-        index = 0
         visited = set()
+        ROWS, COLS = len(board), len(board[0])
         
-        def withinBounds(row: int, col: int) -> bool:
-            return row >= 0 and row < ROWS and col >= 0 and col < COLS
-        
-        
-        def backtrack(index: int, row: int, col: int) -> bool:
+        def backtrack(index: int = 0, row: int = 0, col: int = 0) -> bool:
             if index >= len(word):
                 return True
             
-            if (row, col) in visited or not withinBounds(row, col) \
-                or word[index] != board[row][col]:
+            if row < 0 or row >= ROWS or col < 0 or col >= COLS or (row, col) in visited or board[row][col] != word[index]:
                 return False
+            
             visited.add((row, col))
             for rowOffset, colOffset in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
                 newRow, newCol = row + rowOffset, col + colOffset
