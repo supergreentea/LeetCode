@@ -1,19 +1,18 @@
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
-        if len(nums) < 2:
-            return False
-        
         total = sum(nums)
-        if total % 2 == 1:
+        if len(nums) < 2 or total % 2 == 1:
             return False
         
         @cache
-        def partition(index: int = 0, currentSum: int = 0) -> bool:
-            if index >= len(nums):
+        def dp(index: int = 0, currentSum: int = 0) -> bool:
+            remaining = total - currentSum
+            if index >= len(nums) or currentSum > remaining:
                 return False
-            remainingSum = total - currentSum
-            if currentSum == remainingSum:
+            if currentSum == remaining:
                 return True
-            return partition(index + 1, currentSum + nums[index]) or partition(index + 1, currentSum)
+            return dp(index + 1, currentSum + nums[index]) or dp(index + 1, currentSum)
         
-        return partition()
+        return dp()
+        
+            
