@@ -10,14 +10,12 @@ class Solution:
         
         def count(node: TreeNode = root, maxSoFar: int = -math.inf) -> None:
             nonlocal good
-            if node:
-                if node.val >= maxSoFar:
-                    good += 1
-                for child in [node.left, node.right]:
-                    count(child, max(node.val, maxSoFar))
+            if not node:
+                return
+            if node.val >= maxSoFar:
+                good += 1
+            for child in [node.left, node.right]:
+                count(child, max(maxSoFar, node.val))
         
         count()
         return good
-            
-                
-                
