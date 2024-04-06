@@ -1,5 +1,7 @@
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
+        #time: O(num coins * amount)
+        #space: O(amount)
         
         @cache
         def dp(i: int, remaining: int) -> int:
