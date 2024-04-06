@@ -1,19 +1,17 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        #time: O(amount * num coins)
-        #space: O(amount)
         
         @cache
-        def fewestCoins(remainingAmount: int = amount) -> int:
+        def findFewestCoins(remainingAmount: int = amount) -> int:
             if remainingAmount < 0:
                 return -1
             if remainingAmount == 0:
                 return 0
-            ans = math.inf
+            fewest = math.inf
             for coin in coins:
-                partialSolution = fewestCoins(remainingAmount - coin)
+                partialSolution = findFewestCoins(remainingAmount - coin)
                 if partialSolution != -1:
-                    ans = min(ans, 1 + partialSolution)
-            return ans if ans != math.inf else -1
-    
-        return fewestCoins()
+                    fewest = min(fewest, 1 + partialSolution)
+            return fewest if fewest != math.inf else -1
+        
+        return findFewestCoins()
