@@ -1,25 +1,16 @@
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
         
-        memo = [[-1] * (amount + 1) for _ in range(len(coins))]
-        
-        def numberOfWays(i: int, amount: int) -> int:
-            if amount == 0:
-                return 1
-
-            if i == len(coins):
+        @cache
+        def dp(i: int, remaining: int) -> int:
+            if i == len(coins) or remaining < 0:
                 return 0
-
-            if memo[i][amount] != -1:
-                return memo[i][amount]
+            if remaining == 0:
+                return 1
             
-            if coins[i] > amount:
-                 memo[i][amount] = numberOfWays(i + 1, amount)
-            else:
-                memo[i][amount] = numberOfWays(i, amount - coins[i]) + numberOfWays(i + 1, amount)
-            
-            return memo[i][amount]
-
-        return numberOfWays(0, amount)
+            coin = coins[i]
+            if coin > amount:
+                return dp(i + 1, remaining)
+            return dp(i + 1, remaining) + dp(i, remaining - coin)
         
-        
+        return dp(0, amount)
