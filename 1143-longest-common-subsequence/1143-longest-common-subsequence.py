@@ -2,6 +2,8 @@ class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
         M, N = len(text1), len(text2)
         
+        # there are M * N subproblems (M * N possible pairs of integers... M for first string and N for second string)
+        
         @cache
         def dp(index1: int = 0, index2: int = 0) -> int:
             if index1 == M or index2 == N:
