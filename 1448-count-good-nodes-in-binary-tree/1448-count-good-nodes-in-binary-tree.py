@@ -14,8 +14,9 @@ class Solution:
                 return
             if node.val >= maxSoFar:
                 good += 1
+            newMax = max(maxSoFar, node.val)
             for child in [node.left, node.right]:
-                count(child, max(maxSoFar, node.val))
+                count(child, newMax)
         
         count()
         return good
