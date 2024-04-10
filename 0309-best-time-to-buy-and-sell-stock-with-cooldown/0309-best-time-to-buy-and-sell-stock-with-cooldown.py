@@ -2,14 +2,14 @@ class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         
         @cache
-        def profit(day: int = 0, buying: bool = True) -> int:
-            if day >= len(prices):
+        def dp(index: int = 0, buying: bool = True) -> int:
+            if index >= len(prices):
                 return 0
-            skip = profit(day + 1, buying)
+            cooldown = dp(index + 1, buying)
             if buying:
-                buy = profit(day + 1, not buying) - prices[day]
-                return max(buy, skip)
-            sell = profit(day + 2, not buying) + prices[day]
-            return max(skip, sell)
+                buy = dp(index + 1, not buying) - prices[index]
+                return max(buy, cooldown)
+            sell = dp(index + 2, not buying) + prices[index]
+            return max(sell, cooldown)
         
-        return profit()
+        return dp()
