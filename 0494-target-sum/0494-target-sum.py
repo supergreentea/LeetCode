@@ -1,17 +1,14 @@
 class Solution:
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
-        count = 0
+        
+        N = len(nums)
         
         @cache
-        def dp(index: int = 0, currentSum: int = 0) -> int:
-            nonlocal count
-            if index == len(nums):
+        def dp(i: int = 0, currentSum: int = 0) -> int:
+            if i == N:
                 if currentSum == target:
                     return 1
                 return 0
-            add = dp(index + 1, currentSum + nums[index])
-            subtract = dp(index + 1, currentSum - nums[index])
-            return add +  subtract
+            return dp(i + 1, currentSum + nums[i]) + dp(i + 1, currentSum - nums[i])
         
         return dp()
-            
